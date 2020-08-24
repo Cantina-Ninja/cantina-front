@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-function App() {
-  return (
-    <h1>Olá CantinaNinja. </h1>
-  );
-}
+import GlobalStyle from './style/global';
+
+import Routes from './routes';
+
+const App: React.FC = () => (
+  <Router>
+    <Routes />
+    <GlobalStyle />
+  </Router>
+);
 
 export default App;
