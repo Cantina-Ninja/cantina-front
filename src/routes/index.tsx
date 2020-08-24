@@ -8,7 +8,7 @@ import Dashboard from '../pages/Dashboard';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/dashboard" component={Dashboard} />
+    <Route path="/" component={Dashboard} />
   </Switch>
 );
 
