@@ -3,9 +3,9 @@ import Sidebar from '../../components/Sidebar';
 
 const Dashboard: React.FC = () => (
   <>
-    <Sidebar pageWrapId="page-wrap" outerContainerId="root" />
+    <Sidebar isOpen pageWrapId="page-wrap" outerContainerId="root" />
     <div id="page-wrap">
-      <h1>Click to show menu</h1>
+      <h1>Olá, Dashboard</h1>
     </div>
   </>
 );
