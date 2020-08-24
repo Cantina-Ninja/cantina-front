@@ -39,6 +39,42 @@ export default createGlobalStyle`
     position: relative;
   }
 
+  .bm-burger-bars {
+    background: #373a47;
+  }
+
+  .bm-item {
+    display: inline-block;
+
+    /* Our sidebar item styling */
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #d1d1d1;
+    transition: color 0.2s;
+  }
+
+  .bm-item:hover {
+    color: white;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 36px;
+    top: 36px;
+  }
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+
+  /* Color/shape of close button cross */
+  .bm-cross {
+    background: #bdc3c7;
+  }
+
   /* Position and sizing of burger button */
   .bm-burger-button {
     position: fixed;
@@ -92,7 +128,7 @@ export default createGlobalStyle`
 
   /* Wrapper for item list */
   .bm-item-list {
-    color: #373a47;
+    color: #b8b7ad;
     padding: 0.8em;
   }
 
@@ -105,5 +141,6 @@ export default createGlobalStyle`
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
   }
+
 
 `;
