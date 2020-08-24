@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 function App() {
   return (
-    <h1>Olá CantinaNinja</h1>
+    <h1>Olá CantinaNinja. </h1>
   );
 }
 
