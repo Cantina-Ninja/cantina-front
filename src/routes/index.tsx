@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import Produtos from '../pages/Produtos';
 import Usuarios from '../pages/Usuarios';
+import Vendas from '../pages/Vendas';
 
 // import Route from './Route';
 
@@ -13,6 +14,7 @@ const Routes: React.FC = () => (
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/produtos" component={Produtos} />
     <Route path="/usuarios" component={Usuarios} />
+    <Route path="/vendas" component={Vendas} />
   </Switch>
 );
 
