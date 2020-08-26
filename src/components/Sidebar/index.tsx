@@ -13,18 +13,25 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
         <img src={Logo} alt="CantnaNinja" />
       </div>
       <div className="container-menus">
-        <NavLink activeClassName="active_menu" to="/dashboard" exact>
-          Dashboard
-        </NavLink>
-        <NavLink activeClassName="active_menu" exact to="/produtos">
-          Produtos
-        </NavLink>
-        <NavLink activeClassName="active_menu" exact to="/usuarios">
-          Usuários
-        </NavLink>
-        <NavLink activeClassName="active_menu" exact to="/vendas">
-          Vendas
-        </NavLink>
+        <header>
+          <NavLink activeClassName="active_menu" to="/dashboard" exact>
+            Dashboard
+          </NavLink>
+          <NavLink activeClassName="active_menu" exact to="/produtos">
+            Produtos
+          </NavLink>
+          <NavLink activeClassName="active_menu" exact to="/usuarios">
+            Usuários
+          </NavLink>
+          <NavLink activeClassName="active_menu" exact to="/vendas">
+            Vendas
+          </NavLink>
+        </header>
+        <footer>
+          <NavLink exact to="/">
+            Log out
+          </NavLink>
+        </footer>
       </div>
     </MenuSlide>
   );

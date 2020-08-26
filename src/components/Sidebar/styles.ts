@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { push as Menu } from 'react-burger-menu';
 
 export const MenuSlide = styled(Menu)`
+  nav {
+    display: flex !important;
+    flex-direction: column;
+  }
+
   .logo {
     display: flex !important;
     padding: 50px 0 50px 0;
@@ -15,6 +20,12 @@ export const MenuSlide = styled(Menu)`
   .container-menus {
     display: flex !important;
     flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+
+    footer {
+      margin-bottom: 3rem;
+    }
 
     a {
       transition: color 0.2s;
@@ -29,6 +40,10 @@ export const MenuSlide = styled(Menu)`
 
       & + a {
         margin-top: 50px;
+      }
+
+      &:hover {
+        color: #fff;
       }
     }
   }
