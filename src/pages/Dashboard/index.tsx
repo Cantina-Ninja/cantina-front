@@ -9,9 +9,9 @@ const Dashboard: React.FC = () => (
       pageWrapId="page-wrap"
       outerContainerId="root"
     />
-    <div id="page-wrap">
+    <main id="page-wrap">
       <h1>Olá, Dashboard</h1>
-    </div>
+    </main>
   </>
 );
 
