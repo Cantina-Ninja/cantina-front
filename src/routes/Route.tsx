@@ -43,10 +43,6 @@ const Route: React.FC<RouteProps> = ({
   const user = true;
   const { isMenuOpen } = useContext(MenuContext);
 
-  useEffect(() => {
-    // alert(isMenuOpen);
-  }, [isMenuOpen]);
-
   return (
     <ReactDOMRoute
       {...rest}
@@ -54,14 +50,18 @@ const Route: React.FC<RouteProps> = ({
         return isPrivate === !!user ? (
           <>
             {isPrivate && <Navigation />}
-            <div
-              style={{
-                marginLeft: isMenuOpen ? '340px' : '110px',
-                transition: 'all .6s',
-              }}
-            >
+            {isPrivate ? (
+              <div
+                style={{
+                  marginLeft: isMenuOpen ? '230px' : '',
+                  transition: 'all .6s',
+                }}
+              >
+                <Component />
+              </div>
+            ) : (
               <Component />
-            </div>
+            )}
           </>
         ) : (
           <Redirect

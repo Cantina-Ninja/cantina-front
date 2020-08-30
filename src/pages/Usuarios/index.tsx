@@ -1,11 +1,16 @@
 import React from 'react';
 
-const Usuarios: React.FC = () => (
-  <>
-    <main id="page-wrap">
-      <h1>Olá, Usuarios</h1>
-    </main>
-  </>
-);
+import { Main } from './styles';
+
+const Usuarios: React.FC = () => {
+  return (
+    <Main>
+      <header>Usuarios</header>
+      <section>
+        <article>teste</article>
+      </section>
+    </Main>
+  );
+};
 
 export default Usuarios;

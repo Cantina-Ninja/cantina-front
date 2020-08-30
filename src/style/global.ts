@@ -6,7 +6,6 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     outline: 0;
-    font-family: 'Roboto', serif;
   }
 
   .my-class .page-wrap {
@@ -17,6 +16,7 @@ export default createGlobalStyle`
     color: #C2C9D0;
     background: #111415;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto', sans-serif;
   }
 
   body, input, button {
@@ -32,8 +32,23 @@ export default createGlobalStyle`
   }
 
   #root {
-    font-family: sans-serif;
     height: 100vh;
+  }
+
+  main {
+    padding: 30px 30px 30px 105px;
+
+    display: flex;
+    flex-direction: column;
+
+    > header {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    section {
+      display: flex;
+    }
   }
 
   #page-wrap {

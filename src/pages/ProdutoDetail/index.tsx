@@ -1,11 +1,16 @@
 import React from 'react';
 
-const ProdutoDetail: React.FC = () => (
-  <>
-    <main id="page-wrap">
-      <h1>Olá, Produto Detail</h1>
-    </main>
-  </>
-);
+import { Main } from './styles';
+
+const ProdutoDetail: React.FC = () => {
+  return (
+    <Main>
+      <header>Produtos . Adicionar</header>
+      <section>
+        <article>teste</article>
+      </section>
+    </Main>
+  );
+};
 
 export default ProdutoDetail;

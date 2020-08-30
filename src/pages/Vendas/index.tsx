@@ -1,11 +1,16 @@
 import React from 'react';
 
-const Vendas: React.FC = () => (
-  <>
-    <div id="page-wrap">
-      <h1>Olá, Vendas</h1>
-    </div>
-  </>
-);
+import { Main } from './styles';
+
+const Vendas: React.FC = () => {
+  return (
+    <Main>
+      <header>Vendas</header>
+      <section>
+        <article>teste</article>
+      </section>
+    </Main>
+  );
+};
 
 export default Vendas;
