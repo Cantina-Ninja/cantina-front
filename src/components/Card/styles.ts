@@ -19,7 +19,6 @@ export const Container = styled.div<CardProps>`
   max-width: 300px;
   min-width: 253px;
   font-weight: 600;
-  transition: background-color 0.4s;
 
   position: relative;
 
@@ -42,8 +41,12 @@ export const Container = styled.div<CardProps>`
     font-size: 19px;
   }
 
+  transition: all 0.3s;
+
   &:hover {
     background: ${props => shade(0.2, props.background)};
+
+    transform: translate3d(0, -0.2rem, 0);
   }
 `;
 
@@ -52,8 +55,16 @@ export const LinkItem = styled(Link)<LinkItemProps>`
   right: 15px;
   top: 10px;
   font-size: 34px;
+  display: block;
 
   svg {
     fill: ${props => shade(0.2, props.color)};
+
+    transform: rotate(0deg);
+    transition: all 0.5s ease-in-out 0s;
+
+    &:hover {
+      transform: rotate(180deg);
+    }
   }
 `;
