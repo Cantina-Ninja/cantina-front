@@ -9,6 +9,10 @@ export default createGlobalStyle`
     font-family: 'Roboto', serif;
   }
 
+  .my-class .page-wrap {
+
+  }
+
   body {
     color: #C2C9D0;
     background: #111415;
@@ -33,10 +37,7 @@ export default createGlobalStyle`
   }
 
   #page-wrap {
-    text-align: center;
-    overflow: auto;
-    top: 45%;
-    position: relative;
+    display: flex;
   }
 
   /* Position and sizing of burger button */
@@ -66,7 +67,6 @@ export default createGlobalStyle`
 
   /* Styling of overlay */
   .bm-overlay {
-    border: 1px solid green;
     background: rgba(0, 0, 0, .4) !important;
   }
 
