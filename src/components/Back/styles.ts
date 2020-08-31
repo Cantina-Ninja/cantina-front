@@ -11,6 +11,11 @@ export const Container = styled.button`
 
   svg {
     font-size: 3rem;
-    color: #fff;
+    color: rgb(170, 170, 170);
+    transition: all 0.2s;
+
+    &:hover {
+      color: #fff;
+    }
   }
 `;
