@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { MenuContext } from '../../hooks/menu';
-
 import { Main } from './styles';
 
 const ProdutoDetail: React.FC = () => {

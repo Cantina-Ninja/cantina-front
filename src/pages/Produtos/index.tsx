@@ -2,13 +2,15 @@ import React from 'react';
 
 import Card from '../../components/Card';
 
+import Table from '../../components/Table';
+
 import { Main } from './styles';
 
 const Produtos: React.FC = () => {
   return (
     <Main>
       <header>Produtos</header>
-      <section>
+      <section className="produtos">
         <Card
           title="Produtos"
           backgroundColor="#FFC700"
@@ -24,17 +26,38 @@ const Produtos: React.FC = () => {
           route="/produtos/combo"
         />
         <Card
-          title="Card teste"
-          backgroundColor="#1C1F20"
-          valueColor="#C2C9D0"
-          value="44K"
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="R$ 1.024"
+          route="/produtos/combo"
         />
         <Card
-          title="Card teste 2"
-          backgroundColor="#1C1F20"
-          valueColor="#C2C9D0"
-          value="0%"
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="R$ 1.024"
+          route="/produtos/combo"
         />
+        <Card
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="R$ 1.024"
+          route="/produtos/combo"
+        />
+        <Card
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="R$ 1.024"
+          route="/produtos/combo"
+        />
+      </section>
+      <section className="combos-produtos">
+        <Table />
+        <hr />
+        <Table />
       </section>
     </Main>
   );

@@ -8,10 +8,6 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  .my-class .page-wrap {
-
-  }
-
   body {
     color: #C2C9D0;
     background: #111415;
@@ -29,6 +25,14 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #242829;
+
+    margin: 30px 0;
   }
 
   #root {
