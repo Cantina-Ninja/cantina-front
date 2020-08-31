@@ -21,9 +21,11 @@ const Card: React.FC<CardProps> = ({
   <Container background={backgroundColor} color={valueColor}>
     <h2>{title}</h2>
     <h1>{value}</h1>
-    <LinkItem title={`Adicionar ${title}`} to={route} color={valueColor}>
-      <MdAddCircle />
-    </LinkItem>
+    {!!route && (
+      <LinkItem title={`Adicionar ${title}`} to={route} color={valueColor}>
+        <MdAddCircle />
+      </LinkItem>
+    )}
   </Container>
 );
 
