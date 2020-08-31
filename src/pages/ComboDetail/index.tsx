@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Main } from './styles';
 
@@ -7,7 +8,9 @@ const ComboDetail: React.FC = () => {
     <Main>
       <header>Combo - Adicionar</header>
       <section>
-        <article>teste</article>
+        <article>
+          <Link to="combo">xxxx</Link>
+        </article>
       </section>
     </Main>
   );

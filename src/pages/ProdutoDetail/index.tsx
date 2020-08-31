@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { MenuContext } from '../../hooks/menu';
 
@@ -9,7 +10,9 @@ const ProdutoDetail: React.FC = () => {
     <Main>
       <header>Produtos - Adicionar</header>
       <section>
-        <article>teste</article>
+        <article>
+          <Link to="combo">xxxx</Link>
+        </article>
       </section>
     </Main>
   );
