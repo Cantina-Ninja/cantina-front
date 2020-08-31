@@ -21,7 +21,28 @@ const Produtos: React.FC = () => {
           backgroundColor="#7371FF"
           valueColor="#fff"
           value="23"
-          route="/produtos/combos"
+          route="/produtos/combo"
+        />
+        <Card
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="23"
+          route="/produtos/combo"
+        />
+        <Card
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="23"
+          route="/produtos/combo"
+        />
+        <Card
+          title="Combos"
+          backgroundColor="#7371FF"
+          valueColor="#fff"
+          value="23"
+          route="/produtos/combo"
         />
       </section>
     </Main>

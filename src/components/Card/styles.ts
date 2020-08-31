@@ -26,9 +26,7 @@ export const Container = styled.div<CardProps>`
   justify-content: center;
   align-items: center;
 
-  & + & {
-    margin-left: 40px;
-  }
+  margin: 0 0 30px 30px;
 
   h1 {
     font-size: 34px;

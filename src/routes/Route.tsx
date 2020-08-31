@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   RouteProps as ReactDOMRouterProps,
   Route as ReactDOMRoute,
@@ -7,11 +7,13 @@ import {
 
 import { MenuContext } from '../hooks/menu';
 import Sidebar from '../components/Sidebar';
+import Back from '../components/Back';
 
 // import { useAuth } from '../hooks/auth';
 
 interface RouteProps extends ReactDOMRouterProps {
   isPrivate?: boolean;
+  activeMenu?: boolean;
   component: React.ComponentType;
 }
 
@@ -24,7 +26,7 @@ interface RouteProps extends ReactDOMRouterProps {
  * Rota não ser privada e nao estar autenticado: Continuar
  */
 
-const Navigation = () => {
+const Navigation: React.FC = ({ ...rest }) => {
   const { isMenuOpen, stateChangeHandler } = useContext(MenuContext);
 
   return (
@@ -37,19 +39,20 @@ const Navigation = () => {
 
 const Route: React.FC<RouteProps> = ({
   isPrivate = false,
+  activeMenu = false,
   component: Component,
   ...rest
 }) => {
   const user = true;
   const { isMenuOpen } = useContext(MenuContext);
-
   return (
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
         return isPrivate === !!user ? (
           <>
-            {isPrivate && <Navigation />}
+            {isPrivate && activeMenu && <Navigation />}
+            {!activeMenu && isPrivate && <Back />}
             {isPrivate ? (
               <div
                 style={{

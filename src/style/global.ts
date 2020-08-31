@@ -48,6 +48,7 @@ export default createGlobalStyle`
 
     section {
       display: flex;
+      flex-wrap: wrap;
     }
   }
 

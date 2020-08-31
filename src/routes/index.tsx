@@ -8,6 +8,7 @@ import ProdutoDetail from '../pages/ProdutoDetail';
 import Usuarios from '../pages/Usuarios';
 import Vendas from '../pages/Vendas';
 import SignIn from '../pages/SignIn';
+import ComboDetail from '../pages/ComboDetail';
 
 import Route from './Route';
 
@@ -15,11 +16,18 @@ const Routes: React.FC = () => (
   <>
     <Switch>
       <Route path="/" exact component={SignIn} />
-      <Route path="/dashboard" exact isPrivate component={Dashboard} />
-      <Route path="/produtos" exact isPrivate component={Produtos} />
+      <Route
+        path="/dashboard"
+        exact
+        isPrivate
+        activeMenu
+        component={Dashboard}
+      />
+      <Route path="/produtos" exact isPrivate activeMenu component={Produtos} />
       <Route path="/produtos/produto" isPrivate component={ProdutoDetail} />
-      <Route path="/usuarios" exact isPrivate component={Usuarios} />
-      <Route path="/vendas" exact isPrivate component={Vendas} />
+      <Route path="/produtos/combo" isPrivate component={ComboDetail} />
+      <Route path="/usuarios" exact isPrivate activeMenu component={Usuarios} />
+      <Route path="/vendas" exact isPrivate activeMenu component={Vendas} />
     </Switch>
   </>
 );
