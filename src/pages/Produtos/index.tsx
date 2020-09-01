@@ -119,7 +119,14 @@ const Produtos: React.FC = () => {
           routeEdit=""
           routeRemove=""
         />
+
         <hr />
+        <Table
+          header={['Combo', 'Valor', 'Desconto']}
+          data={combos}
+          routeEdit="aa"
+          routeRemove="bb"
+        />
       </section>
     </Main>
   );
