@@ -1,176 +1,59 @@
-import React, { TableHTMLAttributes } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container } from './styles';
 
-type TableProps = TableHTMLAttributes<HTMLTableElement>;
+export interface TableProps {
+  header: string[];
+  data: object[];
+  routeEdit: string;
+  routeRemove: string;
+}
 
-const Table: React.FC<TableProps> = () => {
+export const TableItem: React.FC = (item: any) => (
+  <tr>
+    {Object.values(item).map((value: any) => (
+      <td key={value}>{value}</td>
+    ))}
+    <td>
+      {item.routeEdit && (
+        <button type="button">
+          <MdModeEdit />
+        </button>
+      )}
+      {item.routeRemove && (
+        <button type="button">
+          <MdDeleteForever />
+        </button>
+      )}
+    </td>
+  </tr>
+);
+
+const Table: React.FC<TableProps> = ({
+  header,
+  data,
+  routeEdit,
+  routeRemove,
+}) => {
   return (
     <Container>
       <thead>
         <tr>
-          <th>Combo</th>
-          <th>Valor</th>
-          <th>Desconto</th>
+          {header.map((title: string) => (
+            <th key={title}>{title}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Hotdog + Coca 300ml + Batata frita</td>
-          <td>R$ 10,00</td>
-          <td>R$ -3,00</td>
-          <td>
-            <button type="button">
-              <MdModeEdit />
-            </button>
-            <button type="button">
-              <MdDeleteForever />
-            </button>
-          </td>
-        </tr>
+        {data.map((item: any, key) => (
+          <TableItem
+            key={item.titulo}
+            {...item}
+            routeEdit={routeEdit}
+            routeRemove={routeRemove}
+          />
+        ))}
       </tbody>
     </Container>
   );

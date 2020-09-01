@@ -4,7 +4,8 @@ export const Container = styled.table`
   border-collapse: collapse;
   text-align: left;
 
-  button {
+  button,
+  a {
     background: none;
     border: 0;
     font-size: 20px;
