@@ -4,35 +4,41 @@ import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container } from './styles';
 
 export interface TableProps {
-  header: string[];
-  data: object[];
-  routeEdit: string;
-  routeRemove: string;
+  columns?: string[] | [];
+  rows: object[];
+  routeEdit?: string;
+  routeRemove?: string;
 }
 
-export const TableItem: React.FC = (item: any) => (
-  <tr>
-    {Object.values(item).map((value: any) => (
-      <td key={value}>{value}</td>
-    ))}
-    <td>
-      {item.routeEdit && (
-        <button type="button">
-          <MdModeEdit />
-        </button>
+export const TableItem: React.FC<TableProps> = ({
+  rows,
+  routeEdit,
+  routeRemove,
+}: any) => {
+  return (
+    <tr>
+      {Object.entries(rows).map(
+        ([a, b]: any) => a !== 'id' && <td key={a}>{b}</td>,
       )}
-      {item.routeRemove && (
-        <button type="button">
-          <MdDeleteForever />
-        </button>
-      )}
-    </td>
-  </tr>
-);
+      <td>
+        {routeEdit && (
+          <button type="button">
+            <MdModeEdit />
+          </button>
+        )}
+        {routeRemove && (
+          <button type="button">
+            <MdDeleteForever />
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+};
 
 const Table: React.FC<TableProps> = ({
-  header,
-  data,
+  columns = [],
+  rows,
   routeEdit,
   routeRemove,
 }) => {
@@ -40,16 +46,16 @@ const Table: React.FC<TableProps> = ({
     <Container>
       <thead>
         <tr>
-          {header.map((title: string) => (
+          {columns?.map((title: string) => (
             <th key={title}>{title}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.map((item: any, key) => (
+        {rows.map((item: any) => (
           <TableItem
-            key={item.titulo}
-            {...item}
+            key={`tb-${item.id}`}
+            rows={item}
             routeEdit={routeEdit}
             routeRemove={routeRemove}
           />
