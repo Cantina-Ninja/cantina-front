@@ -22,9 +22,9 @@ export const TableItem: React.FC<TableProps> = ({
       )}
       <td>
         {routeEdit && (
-          <button type="button">
+          <Link to={`${routeEdit}/${rows.id}/edit`}>
             <MdModeEdit />
-          </button>
+          </Link>
         )}
         {routeRemove && (
           <button type="button">

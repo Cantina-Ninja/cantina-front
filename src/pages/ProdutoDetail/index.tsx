@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { Main } from './styles';
 
 const ProdutoDetail: React.FC = () => {
+  const { id = '' } = useParams();
+
+  console.log(id);
   return (
     <Main>
-      <header>Produtos - Adicionar</header>
+      <header>{id ? 'Edição de Produto' : 'Criar Produto'}</header>
       <section>
-        <article>
-          <Link to="combo">xxxx</Link>
-        </article>
+        <article> # {id}</article>
       </section>
     </Main>
   );

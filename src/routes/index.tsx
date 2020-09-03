@@ -24,7 +24,10 @@ const Routes: React.FC = () => (
         component={Dashboard}
       />
       <Route path="/produtos" exact isPrivate activeMenu component={Produtos} />
-      <Route path="/produtos/produto" isPrivate component={ProdutoDetail} />
+
+      <Route path="/produtos/:id/edit" isPrivate component={ProdutoDetail} />
+      <Route path="/produtos/new" isPrivate component={ProdutoDetail} />
+
       <Route path="/produtos/combo" isPrivate component={ComboDetail} />
       <Route path="/usuarios" exact isPrivate activeMenu component={Usuarios} />
       <Route path="/vendas" exact isPrivate activeMenu component={Vendas} />
