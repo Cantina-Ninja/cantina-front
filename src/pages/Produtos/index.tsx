@@ -62,16 +62,15 @@ const Produtos: React.FC = () => {
           title="Combos"
           backgroundColor="#7371FF"
           valueColor="#fff"
-          value="x"
-          route="/produtos/combo"
+          value="0"
         />
       </section>
       <section className="combos-produtos">
         <Table
-          columns={['Produtos', 'Validade', 'Quantidade', 'Marca', 'Valor']}
+          columns={['Produtos', 'Validade', 'Quantidade', 'Valor']}
           rows={produtos}
           routeEdit="produtos"
-          routeRemove="x"
+          routeRemove="produtos"
         />
         <hr />
       </section>
