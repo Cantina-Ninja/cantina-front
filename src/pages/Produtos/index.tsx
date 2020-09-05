@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
 import { Main } from './styles';
+import formatValue from '../../utils/formatValue';
 
 import api from '../../services/api';
 
@@ -9,8 +10,8 @@ interface ComboProps {
   readonly id?: number;
   readonly skuCombo?: number;
   readonly nomeCombo: string;
-  readonly valor: number;
-  readonly unitDesc: number;
+  readonly valor: string | number;
+  readonly unitDesc: number | string;
 }
 
 interface ProdutosProps {
@@ -20,7 +21,7 @@ interface ProdutosProps {
   readonly validade: string;
   readonly qtdEstoque: number;
   readonly marca?: string;
-  readonly valorUnit: number;
+  readonly valorUnit: number | string;
 }
 
 const Produtos: React.FC = () => {
@@ -35,8 +36,8 @@ const Produtos: React.FC = () => {
         return {
           id: skuCombo,
           nomeCombo,
-          valor,
-          unitDesc,
+          valor: formatValue(Number(valor)),
+          unitDesc: `- ${formatValue(Number(unitDesc))}`,
         };
       }),
     );
@@ -51,9 +52,9 @@ const Produtos: React.FC = () => {
           return {
             id: skuProduto,
             nomeProduto,
-            validade,
+            validade: new Date(validade).toLocaleDateString('pt-br'),
             qtdEstoque,
-            valorUnit,
+            valorUnit: formatValue(Number(valorUnit)),
           };
         },
       ),
