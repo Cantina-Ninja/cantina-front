@@ -85,12 +85,14 @@ const Produtos: React.FC = () => {
           route="/combos/new"
         />
       </section>
+
       <section className="combos-produtos">
         <Table
           columns={['Combos', 'Valor', 'Desconto']}
           rows={combos}
           routeEdit="combos"
           routeRemove="combos"
+          state={setCombo}
         />
         <hr />
         <Table
@@ -98,6 +100,7 @@ const Produtos: React.FC = () => {
           rows={produtos}
           routeEdit="produtos"
           routeRemove="produtos"
+          state={setProdutos}
         />
       </section>
     </Main>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container } from './styles';
@@ -8,12 +8,15 @@ export interface TableProps {
   rows: object[];
   routeEdit?: string;
   routeRemove?: string;
+  handleRemoveRow?: any;
+  state?: any;
 }
 
 export const TableItem: React.FC<TableProps> = ({
   rows,
   routeEdit,
   routeRemove,
+  handleRemoveRow,
 }: any) => {
   return (
     <tr>
@@ -27,7 +30,7 @@ export const TableItem: React.FC<TableProps> = ({
           </Link>
         )}
         {routeRemove && (
-          <button type="button">
+          <button type="button" onClick={() => handleRemoveRow(rows.id)}>
             <MdDeleteForever />
           </button>
         )}
@@ -41,7 +44,12 @@ const Table: React.FC<TableProps> = ({
   rows,
   routeEdit,
   routeRemove,
+  state,
 }) => {
+  const handleRemoveRow = (id: any) => {
+    state(rows.filter((item: any) => id !== item.id));
+  };
+
   return (
     <Container>
       <thead>
@@ -58,11 +66,11 @@ const Table: React.FC<TableProps> = ({
             rows={item}
             routeEdit={routeEdit}
             routeRemove={routeRemove}
+            handleRemoveRow={handleRemoveRow}
           />
         ))}
       </tbody>
     </Container>
   );
 };
-
 export default Table;
