@@ -6,24 +6,41 @@ import { Main } from './styles';
 import api from '../../services/api';
 
 interface ComboProps {
-  nomeCombo?: string;
-  unitDesc?: number;
-  valor?: number;
+  readonly id?: number;
+  readonly skuCombo?: number;
+  readonly nomeCombo: string;
+  readonly valor: number;
+  readonly unitDesc: number;
 }
 
 interface ProdutosProps {
-  id?: number;
-  skuProduto?: number;
-  nomeProduto: string;
-  validade: string;
-  qtdEstoque: number;
-  marca?: string;
-  valorUnit: number;
+  readonly id?: number;
+  readonly skuProduto?: number;
+  readonly nomeProduto: string;
+  readonly validade: string;
+  readonly qtdEstoque: number;
+  readonly marca?: string;
+  readonly valorUnit: number;
 }
 
 const Produtos: React.FC = () => {
   const [combos, setCombo] = useState<ComboProps[]>([]);
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
+
+  const getCombos = useCallback(async () => {
+    const { data } = await api.get<ComboProps[]>('combos');
+
+    setCombo(
+      data.map(({ skuCombo, nomeCombo, valor, unitDesc }) => {
+        return {
+          id: skuCombo,
+          nomeCombo,
+          valor,
+          unitDesc,
+        };
+      }),
+    );
+  }, []);
 
   const getProdutos = useCallback(async () => {
     const { data } = await api.get<ProdutosProps[]>('produtos');
@@ -44,8 +61,9 @@ const Produtos: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    getCombos();
     getProdutos();
-  }, [getProdutos]);
+  }, [getCombos, getProdutos]);
 
   return (
     <Main>
@@ -62,17 +80,24 @@ const Produtos: React.FC = () => {
           title="Combos"
           backgroundColor="#7371FF"
           valueColor="#fff"
-          value="0"
+          value={`${combos.length}`}
+          route="/combos/new"
         />
       </section>
       <section className="combos-produtos">
+        <Table
+          columns={['Combos', 'Valor', 'Desconto']}
+          rows={combos}
+          routeEdit="combos"
+          routeRemove="combos"
+        />
+        <hr />
         <Table
           columns={['Produtos', 'Validade', 'Quantidade', 'Valor']}
           rows={produtos}
           routeEdit="produtos"
           routeRemove="produtos"
         />
-        <hr />
       </section>
     </Main>
   );

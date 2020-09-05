@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { Main } from './styles';
 
 const ComboDetail: React.FC = () => {
+  const { id = '' } = useParams();
+
+  console.log(id);
   return (
     <Main>
-      <header>Combo - Adicionar</header>
+      <header>{id ? 'Edição de Combo' : 'Criar Combo'}</header>
       <section>
-        <article>
-          <Link to="combo">xxxx</Link>
-        </article>
+        <article> # {id}</article>
       </section>
     </Main>
   );
