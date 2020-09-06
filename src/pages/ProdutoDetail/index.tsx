@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Input from '../../components/Input';
 
 import { Main } from './styles';
 
 const ProdutoDetail: React.FC = () => {
   const { id = '' } = useParams();
 
-  console.log(id);
   return (
     <Main>
       <header>{id ? 'Edição de Produto' : 'Criar Produto'}</header>

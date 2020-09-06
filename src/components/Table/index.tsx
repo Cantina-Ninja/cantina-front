@@ -52,7 +52,7 @@ const Table: React.FC<TableProps> = ({
       stateRows(rows.filter((item: any) => id !== item.id));
 
       try {
-        await api.delete(`${routeRemove}/${id}`);
+        await api.post(`${routeRemove}/${id}`);
       } catch (error) {
         console.error(error); // TODO
       }

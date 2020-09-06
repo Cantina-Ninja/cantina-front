@@ -43,7 +43,7 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const user = true;
+  const user = false;
   const { isMenuOpen } = useContext(MenuContext);
   return (
     <ReactDOMRoute
