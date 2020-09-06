@@ -50,13 +50,12 @@ export const Main = styled.div`
 
       footer {
         div + div {
-            margin-top: 12px;
-          }
+          margin-top: 12px;
         }
+      }
 
-        button {
-          margin-top: 35px;
-        }
+      button {
+        margin-top: 35px;
       }
     }
   }
