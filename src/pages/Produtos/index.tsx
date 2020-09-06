@@ -92,7 +92,7 @@ const Produtos: React.FC = () => {
           rows={combos}
           routeEdit="combos"
           routeRemove="combos"
-          state={setCombo}
+          stateRows={setCombo}
         />
         <hr />
         <Table
@@ -100,7 +100,7 @@ const Produtos: React.FC = () => {
           rows={produtos}
           routeEdit="produtos"
           routeRemove="produtos"
-          state={setProdutos}
+          stateRows={setProdutos}
         />
       </section>
     </Main>

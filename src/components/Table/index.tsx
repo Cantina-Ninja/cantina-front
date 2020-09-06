@@ -2,14 +2,15 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container } from './styles';
+import api from '../../services/api';
 
 export interface TableProps {
   columns?: string[] | [];
   rows: object[];
   routeEdit?: string;
   routeRemove?: string;
-  handleRemoveRow?: any;
-  state?: any;
+  handleRemoveRow?: Function;
+  stateRows?: any;
 }
 
 export const TableItem: React.FC<TableProps> = ({
@@ -44,11 +45,20 @@ const Table: React.FC<TableProps> = ({
   rows,
   routeEdit,
   routeRemove,
-  state,
+  stateRows,
 }) => {
-  const handleRemoveRow = (id: any) => {
-    state(rows.filter((item: any) => id !== item.id));
-  };
+  const handleRemoveRow = useCallback(
+    async (id: any) => {
+      stateRows(rows.filter((item: any) => id !== item.id));
+
+      try {
+        await api.delete(`${routeRemove}/${id}`);
+      } catch (error) {
+        console.error(error); // TODO
+      }
+    },
+    [stateRows, rows],
+  );
 
   return (
     <Container>
@@ -62,7 +72,7 @@ const Table: React.FC<TableProps> = ({
       <tbody>
         {rows.map((item: any) => (
           <TableItem
-            key={`tb-${item.id}`}
+            key={item.id}
             rows={item}
             routeEdit={routeEdit}
             routeRemove={routeRemove}
