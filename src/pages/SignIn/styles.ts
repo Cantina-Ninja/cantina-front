@@ -21,7 +21,7 @@ const fromLeft = keyframes`
 `;
 
 export const Content = styled.div`
-  animation: ${fromLeft} 2s;
+  animation: ${fromLeft} 1.5s;
   display: flex;
   flex-direction: column;
   align-items: center;
