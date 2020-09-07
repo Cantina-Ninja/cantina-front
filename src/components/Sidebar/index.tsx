@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Props } from 'react-burger-menu';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth';
 
 import { MenuSlide } from './styles';
 import Logo from '../../assets/logo.svg';
 
 const Sidebar: React.FC<Props> = ({ ...props }) => {
+  const { signOut } = useAuth();
+  const history = useHistory();
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+    history.push('/');
+  }, []);
+
   return (
     // Pass on our props
     <MenuSlide {...props}>
@@ -28,9 +37,9 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
           </NavLink>
         </header>
         <footer>
-          <NavLink exact to="/">
+          <button type="button" onClick={handleSignOut}>
             Log out
-          </NavLink>
+          </button>
         </footer>
       </div>
     </MenuSlide>

@@ -25,6 +25,23 @@ export const MenuSlide = styled(Menu)`
 
     footer {
       margin-bottom: 3rem;
+      button {
+        border: 0;
+        background: transparent;
+
+        transition: color 0.2s;
+        display: flex !important;
+        flex: 1;
+
+        color: #c2c9d0;
+        display: flex;
+        padding-left: 60px;
+        text-decoration: none;
+        font-size: 17px;
+        &:hover {
+          color: #fff;
+        }
+      }
     }
 
     a {

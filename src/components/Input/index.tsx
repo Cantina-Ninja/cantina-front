@@ -30,8 +30,6 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
     });
   }, [fieldName, registerField]);
 
-  /* Sempre que for criar uma
-   * funcao dentro de outra useCallback */
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
