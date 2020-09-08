@@ -6,14 +6,6 @@ import formatValue from '../../utils/formatValue';
 
 import api from '../../services/api';
 
-interface ComboProps {
-  readonly id?: number;
-  readonly skuCombo?: number;
-  readonly nomeCombo: string;
-  readonly valor: string | number;
-  readonly unitDesc: number | string;
-}
-
 interface ProdutosProps {
   readonly id?: number;
   readonly skuProduto?: number;
@@ -25,23 +17,7 @@ interface ProdutosProps {
 }
 
 const Produtos: React.FC = () => {
-  const [combos, setCombo] = useState<ComboProps[]>([]);
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
-
-  const getCombos = useCallback(async () => {
-    const { data } = await api.get<ComboProps[]>('combos');
-
-    setCombo(
-      data.map(({ skuCombo, nomeCombo, valor, unitDesc }) => {
-        return {
-          id: skuCombo,
-          nomeCombo,
-          valor: formatValue(Number(valor)),
-          unitDesc: `- ${formatValue(Number(unitDesc))}`,
-        };
-      }),
-    );
-  }, []);
 
   const getProdutos = useCallback(async () => {
     const { data } = await api.get<ProdutosProps[]>('produtos');
@@ -62,9 +38,8 @@ const Produtos: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    getCombos();
     getProdutos();
-  }, [getCombos, getProdutos]);
+  }, [getProdutos]);
 
   return (
     <Main>
@@ -77,24 +52,9 @@ const Produtos: React.FC = () => {
           value={`${produtos.length}`}
           route="/produtos/new"
         />
-        <Card
-          title="Combos"
-          backgroundColor="#7371FF"
-          valueColor="#fff"
-          value={`${combos.length}`}
-          route="/combos/new"
-        />
       </section>
 
       <section className="combos-produtos">
-        <Table
-          columns={['Combos', 'Valor', 'Desconto']}
-          rows={combos}
-          routeEdit="combos"
-          routeRemove="combos"
-          stateRows={setCombo}
-        />
-        <hr />
         <Table
           columns={['Produtos', 'Validade', 'Quantidade', 'Valor']}
           rows={produtos}
@@ -102,6 +62,7 @@ const Produtos: React.FC = () => {
           routeRemove="produtos"
           stateRows={setProdutos}
         />
+        <hr />
       </section>
     </Main>
   );
