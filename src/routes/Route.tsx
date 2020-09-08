@@ -49,7 +49,7 @@ const Route: React.FC<RouteProps> = ({
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!usuario ? (
+        return isPrivate === !!true ? (
           <>
             {isPrivate && activeMenu && <Navigation />}
             {!activeMenu && isPrivate && <Back />}
