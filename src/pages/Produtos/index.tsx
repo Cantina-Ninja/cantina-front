@@ -52,6 +52,19 @@ const Produtos: React.FC = () => {
           value={`${produtos.length}`}
           route="/produtos/new"
         />
+        <Card
+          title="Teste"
+          backgroundColor="#7C67FF"
+          valueColor="#fff"
+          value="10k"
+          route="/produtos/new"
+        />
+        <Card
+          title="Teste 2"
+          backgroundColor="#1C1F20"
+          valueColor="#fff"
+          value="R$ 00,00"
+        />
       </section>
 
       <section className="combos-produtos">

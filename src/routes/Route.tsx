@@ -42,14 +42,14 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { token, usuario } = useAuth();
+  const { token, nome } = useAuth();
   const { isMenuOpen } = useContext(MenuContext);
   console.log(token);
   return (
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!true ? (
+        return isPrivate === !!nome ? (
           <>
             {isPrivate && activeMenu && <Navigation />}
             {!activeMenu && isPrivate && <Back />}

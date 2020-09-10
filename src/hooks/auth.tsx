@@ -3,17 +3,17 @@ import api from '../services/api';
 
 interface AuthState {
   token: string;
-  usuario: object;
+  nome: object;
 }
 
 interface SignInCredentials {
-  usuario: string;
+  nome: string;
   senha: string;
 }
 
 interface AuthContextData {
   token: string;
-  usuario: object;
+  nome: object;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -23,42 +23,41 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@CantinaNinja:token');
-    const usuario = localStorage.getItem('@CantinaNinja:usuario');
+    const nome = localStorage.getItem('@CantinaNinja:nome');
 
-    if (token && usuario) {
-      return { token, usuario: JSON.parse(usuario) };
+    if (token && nome) {
+      return { token, nome: JSON.parse(nome) };
     }
 
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ usuario, senha }) => {
+  const signIn = useCallback(async ({ nome, senha }) => {
     const response = await api.post('login', {
-      usuario,
+      nome,
       senha,
     });
 
     console.log(response);
 
-    // const { token } = response.data;
-    const token = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    const { token } = response.data;
 
-    localStorage.setItem('@CantinaNinja:token', String(token));
-    localStorage.setItem('@CantinaNinja:usuario', JSON.stringify(usuario));
+    localStorage.setItem('@CantinaNinja:token', token);
+    localStorage.setItem('@CantinaNinja:nome', nome);
 
-    setData({ token, usuario });
+    setData({ token, nome });
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@CantinaNinja:token');
-    localStorage.removeItem('@CantinaNinja:usuario');
+    localStorage.removeItem('@CantinaNinja:nome');
 
     setData({} as AuthState);
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ token: data.token, usuario: data.usuario, signIn, signOut }}
+      value={{ token: data.token, nome: data.nome, signIn, signOut }}
     >
       {children}
     </AuthContext.Provider>

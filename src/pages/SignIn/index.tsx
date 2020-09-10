@@ -13,7 +13,7 @@ import Input from '../../components/Input';
 import Logo from '../../assets/logo.svg';
 
 interface SignInData {
-  usuario: string;
+  nome: string;
   senha: string;
 }
 
@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
-        usuario: Yup.string().required('Usuário obrigatório'),
+        nome: Yup.string().required('Usuário obrigatório'),
         senha: Yup.string().required('Senha obrigatória'),
       });
 
@@ -37,7 +37,7 @@ const SignIn: React.FC = () => {
       });
 
       await signIn({
-        usuario: data.usuario,
+        nome: data.nome,
         senha: data.senha,
       });
 
@@ -64,11 +64,11 @@ const SignIn: React.FC = () => {
             <img src={Logo} alt="Logotipo" />
           </Header>
           <Input
-            name="usuario"
+            name="nome"
             icon={RiUser6Line}
             type="text"
             autoComplete="username"
-            placeholder="Usuario"
+            placeholder="Nome"
           />
           <Input
             name="senha"
