@@ -3,7 +3,8 @@ import api from '../services/api';
 
 interface AuthState {
   token: string;
-  nome: object;
+  nome: string;
+  rule: string;
 }
 
 interface SignInCredentials {
@@ -13,7 +14,8 @@ interface SignInCredentials {
 
 interface AuthContextData {
   token: string;
-  nome: object;
+  nome: string;
+  rule: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -24,9 +26,10 @@ const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@CantinaNinja:token');
     const nome = localStorage.getItem('@CantinaNinja:nome');
+    const rule = localStorage.getItem('@CantinaNinja:rule');
 
-    if (token && nome) {
-      return { token, nome: JSON.parse(nome) };
+    if (token && nome && rule) {
+      return { token, nome, rule };
     }
 
     return {} as AuthState;
@@ -38,26 +41,32 @@ const AuthProvider: React.FC = ({ children }) => {
       senha,
     });
 
-    console.log(response);
-
-    const { token } = response.data;
+    const { token, tipoUsuario } = response.data;
 
     localStorage.setItem('@CantinaNinja:token', token);
     localStorage.setItem('@CantinaNinja:nome', nome);
+    localStorage.setItem('@CantinaNinja:rule', tipoUsuario);
 
-    setData({ token, nome });
+    setData({ token, nome, rule: tipoUsuario });
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@CantinaNinja:token');
     localStorage.removeItem('@CantinaNinja:nome');
+    localStorage.removeItem('@CantinaNinja:rule');
 
     setData({} as AuthState);
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ token: data.token, nome: data.nome, signIn, signOut }}
+      value={{
+        token: data.token,
+        nome: data.nome,
+        rule: data.rule,
+        signIn,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>

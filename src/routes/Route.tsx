@@ -42,9 +42,9 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { token, nome } = useAuth();
+  const { token, nome, rule } = useAuth();
   const { isMenuOpen } = useContext(MenuContext);
-  console.log(token);
+  console.log(token, nome, rule);
   return (
     <ReactDOMRoute
       {...rest}
