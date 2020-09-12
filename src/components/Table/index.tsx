@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { Container } from './styles';
 import api from '../../services/api';
+import getExpiredProduct from '../../utils/getExpiredProduct';
 
 export interface TableProps {
   columns?: string[] | [];
@@ -21,9 +22,21 @@ export const TableItem: React.FC<TableProps> = ({
 }: any) => {
   return (
     <tr>
-      {Object.entries(rows).map(
-        ([a, b]: any) => a !== 'id' && <td key={a}>{b}</td>,
-      )}
+      {Object.entries(rows).map(([a, b]: any) => {
+        if (a === 'validade' && getExpiredProduct(b))
+          return (
+            <td key={a}>
+              <div className="validity--expired">{b}</div>
+            </td>
+          );
+        if (a === 'validade')
+          return (
+            <td key={a}>
+              <div className="validity">{b}</div>
+            </td>
+          );
+        return a !== 'id' && <td key={a}>{b}</td>;
+      })}
       <td>
         {routeEdit && (
           <Link to={`${routeEdit}/${rows.id}/edit`}>
@@ -52,12 +65,12 @@ const Table: React.FC<TableProps> = ({
       stateRows(rows.filter((item: any) => id !== item.id));
 
       try {
-        await api.post(`${routeRemove}/${id}`);
+        await api.delete(`${routeRemove}/${id}`);
       } catch (error) {
         console.error(error); // TODO
       }
     },
-    [stateRows, rows],
+    [stateRows, rows, routeRemove],
   );
 
   return (

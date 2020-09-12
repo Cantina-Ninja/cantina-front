@@ -4,6 +4,22 @@ export const Container = styled.table`
   border-collapse: collapse;
   text-align: left;
 
+  .validity {
+    background-color: #679436;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    display: inline-block;
+
+    &--expired {
+      background-color: #d72638;
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+  }
+
   button,
   a {
     background: none;
