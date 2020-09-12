@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { RiUser6Line, RiKey2Fill } from 'react-icons/ri';
 import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import { Form, Container } from './styles';
 
@@ -43,6 +44,9 @@ const ProdutoDetail: React.FC = () => {
           />
           <hr />
           <Input description="Data Validade" name="dtVld" type="Date" />
+          <Button type="submit">
+            {id ? 'Edição de produto' : 'Criar Produto'}
+          </Button>
         </Form>
       </section>
     </Container>
