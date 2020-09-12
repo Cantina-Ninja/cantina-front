@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/auth';
 
 import { MenuSlide } from './styles';
 import Logo from '../../assets/logo.svg';
+import { ReactComponent as Hamburguer } from '../../assets/burguer.svg';
 
 const Sidebar: React.FC<Props> = ({ ...props }) => {
   const { signOut } = useAuth();
@@ -17,7 +18,7 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
 
   return (
     // Pass on our props
-    <MenuSlide {...props}>
+    <MenuSlide customBurgerIcon={<Hamburguer />} {...props}>
       <div className="logo">
         <img src={Logo} alt="CantnaNinja" />
       </div>

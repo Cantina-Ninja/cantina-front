@@ -6,8 +6,8 @@ export const Container = styled.button`
   background: transparent;
 
   position: absolute;
-  left: 25px;
-  top: 25px;
+  left: 2rem;
+  top: 2.5rem;
 
   svg {
     font-size: 3rem;
