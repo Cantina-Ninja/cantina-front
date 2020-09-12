@@ -29,6 +29,7 @@ const AuthProvider: React.FC = ({ children }) => {
     const rule = localStorage.getItem('@CantinaNinja:rule');
 
     if (token && nome && rule) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
       return { token, nome, rule };
     }
 
@@ -46,6 +47,8 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@CantinaNinja:token', token);
     localStorage.setItem('@CantinaNinja:nome', nome);
     localStorage.setItem('@CantinaNinja:rule', tipoUsuario);
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, nome, rule: tipoUsuario });
   }, []);
