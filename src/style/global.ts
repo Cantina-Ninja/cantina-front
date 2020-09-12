@@ -39,8 +39,9 @@ export default createGlobalStyle`
     height: 100vh;
   }
 
+
   main {
-    padding: 30px 30px 30px 105px;
+    padding: 45px 30px 30px 120px;
 
     display: flex;
     flex-direction: column;
@@ -63,10 +64,21 @@ export default createGlobalStyle`
   /* Position and sizing of burger button */
   .bm-burger-button {
     position: fixed;
-    width: 36px;
-    height: 30px;
-    left: 36px;
-    top: 36px;
+    width: 3rem;
+    height: 3rem;
+    left: 2rem;
+    top: 2.5rem;
+    .bm-icon {
+      width: 3rem;
+      height: 3rem;
+      fill: #c2c9d0;
+      transition: fill .5s ease;
+    }
+    &:hover {
+      .bm-icon {
+        fill: #fff;
+      }
+    }
   }
 
   /* Color/shape of burger icon bars */
