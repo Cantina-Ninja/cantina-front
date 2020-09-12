@@ -11,15 +11,38 @@ const ProdutoDetail: React.FC = () => {
   const handleSubmit = useCallback(async (data: any) => {}, []);
   return (
     <Container>
-      <header>{id ? 'Edição de Produto' : 'Criar Produto'}</header>
+      <header>{id ? 'Edição de produto' : 'Criar Produto'}</header>
       <section>
         <Form onSubmit={handleSubmit}>
           <Input
-            name="nome"
-            icon={RiUser6Line}
+            description="Nome do produto"
+            name="nomeProduto"
             type="text"
-            placeholder="Nome do Produto"
+            placeholder="Produto"
           />
+          <hr />
+          <Input
+            description="Quantidade em estoque"
+            name="qtdEstq"
+            type="text"
+            placeholder="00"
+          />
+          <hr />
+          <Input
+            description="Marca"
+            name="nome"
+            type="text"
+            placeholder="Marca"
+          />
+          <hr />
+          <Input
+            description="Valor do produto"
+            name="nome"
+            type="text"
+            placeholder="R$ 00,00"
+          />
+          <hr />
+          <Input description="Data Validade" name="dtVld" type="Date" />
         </Form>
       </section>
     </Container>

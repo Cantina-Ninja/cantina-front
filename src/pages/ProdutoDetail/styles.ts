@@ -7,8 +7,9 @@ export const Form = styled(form)`
   flex: flex;
   flex-direction: row;
   width: 100%;
+  margin-top: 10px;
 
   button {
-    margin-top: 5px;
+    margin: 10px;
   }
 `;

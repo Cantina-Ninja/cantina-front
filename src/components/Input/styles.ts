@@ -74,3 +74,7 @@ export const Error = styled(Tooltip)`
     }
   }
 `;
+
+export const Title = styled.p`
+  margin-bottom: 15px;
+`;
