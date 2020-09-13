@@ -13,42 +13,39 @@ const ProdutoDetail: React.FC = () => {
   return (
     <Container>
       <header>{id ? 'Edição de produto' : 'Criar Produto'}</header>
-      <section>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            description="Nome do produto"
-            name="nomeProduto"
-            type="text"
-            placeholder="Produto"
-          />
-          <hr />
-          <Input
-            description="Quantidade em estoque"
-            name="qtdEstq"
-            type="text"
-            placeholder="00"
-          />
-          <hr />
-          <Input
-            description="Marca"
-            name="nome"
-            type="text"
-            placeholder="Marca"
-          />
-          <hr />
-          <Input
-            description="Valor do produto"
-            name="nome"
-            type="text"
-            placeholder="R$ 00,00"
-          />
-          <hr />
-          <Input description="Data Validade" name="dtVld" type="Date" />
-          <Button type="submit">
-            {id ? 'Edição de produto' : 'Criar Produto'}
-          </Button>
-        </Form>
-      </section>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          description="Nome do produto"
+          name="nomeProduto"
+          type="text"
+          placeholder="Produto"
+        />
+        <Input
+          description="Quantidade em estoque"
+          name="qtdEstq"
+          type="text"
+          placeholder="00"
+        />
+        <Input
+          description="Marca"
+          name="nome"
+          type="text"
+          placeholder="Marca"
+        />
+        <Input
+          description="Valor do produto"
+          name="nome"
+          type="text"
+          placeholder="R$ 00,00"
+        />
+        <Input description="Data Validade" name="dtVld" type="Date" />
+
+        <hr />
+
+        <Button type="submit">
+          {id ? 'Edição de produto' : 'Criar Produto'}
+        </Button>
+      </Form>
     </Container>
   );
 };

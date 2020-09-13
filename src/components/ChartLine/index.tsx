@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, CanvasHTMLAttributes } from 'react';
 import Chart from 'chart.js';
 
-type CanvasProps = CanvasHTMLAttributes<HTMLCanvasElement>;
+export interface CanvasProps extends CanvasHTMLAttributes<HTMLCanvasElement> {
+  data: any;
+}
 
-const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
+const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
   const canvasElm = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -81,20 +83,7 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
             pointStyle: 'circle',
             label: 'R$',
             // dados das colunas
-            data: [
-              1500,
-              200,
-              7000,
-              100,
-              700,
-              900,
-              500,
-              4000,
-              500,
-              4000,
-              500,
-              4000,
-            ],
+            data,
           },
         ],
       },
@@ -103,7 +92,7 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
 
   return (
     <canvas ref={canvasElm} {...rest}>
-      Your browser does not support the canvas element.
+      Seu browser não suporta Canvas
     </canvas>
   );
 };

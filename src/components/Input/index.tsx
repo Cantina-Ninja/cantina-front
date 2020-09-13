@@ -47,7 +47,7 @@ const Input: React.FC<InputProps> = ({
   }, []);
 
   return (
-    <>
+    <div>
       {description && <Title>{description}</Title>}
       <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
         {Icon && <Icon size={20} />}
@@ -66,7 +66,7 @@ const Input: React.FC<InputProps> = ({
           </Error>
         )}
       </Container>
-    </>
+    </div>
   );
 };
 

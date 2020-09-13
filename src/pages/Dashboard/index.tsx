@@ -4,11 +4,31 @@ import Card from '../../components/Card';
 import { Main, ContainerChart, CardsContainer } from './styles';
 
 const Dashboard: React.FC = () => {
+  const data = [
+    1500,
+    200,
+    7000,
+    100,
+    700,
+    900,
+    500,
+    4000,
+    500,
+    4000,
+    500,
+    4000,
+  ];
+
   return (
     <Main>
       <header>Dashboard</header>
       <ContainerChart>
-        <ChartLine height={70} />
+        <ChartLine height={100} data={data} />
+        <ChartLine height={100} data={data} />
+        <ChartLine height={100} data={data} />
+        <ChartLine height={100} data={data} />
+        <ChartLine height={100} data={data} />
+        <ChartLine height={100} data={data} />
       </ContainerChart>
       <hr />
       <CardsContainer>
