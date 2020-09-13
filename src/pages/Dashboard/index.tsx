@@ -24,11 +24,6 @@ const Dashboard: React.FC = () => {
       <header>Dashboard</header>
       <ContainerChart>
         <ChartLine height={100} data={data} />
-        <ChartLine height={100} data={data} />
-        <ChartLine height={100} data={data} />
-        <ChartLine height={100} data={data} />
-        <ChartLine height={100} data={data} />
-        <ChartLine height={100} data={data} />
       </ContainerChart>
       <hr />
       <CardsContainer>

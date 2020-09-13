@@ -1,13 +1,17 @@
 import styled, { css } from 'styled-components';
 import Tooltip from '../Tooltip';
 
-interface ContainerProps {
+interface ContainerInputProps {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+interface ContainerProps {
+  perspective: 'horizontal' | 'vertical';
+}
+
+export const ContainerInput = styled.div<ContainerInputProps>`
   background: #1C1F20;
   border-radius: 10px;
   border: 2px solid #1C1F20;
@@ -18,9 +22,6 @@ export const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
 
-  & + div {
-    margin-top: 8px;
-  }
 
   ${props =>
     props.isErrored &&
@@ -47,6 +48,7 @@ export const Container = styled.div<ContainerProps>`
     background: transparent;
     border: 0;
     color: #C2C9D0;
+    height: 16px;
 
     &::placeholder {
       color: #44474A;
@@ -73,6 +75,24 @@ export const Error = styled(Tooltip)`
       border-color: #d72638 transparent;
     }
   }
+`;
+
+export const Container = styled.div<ContainerProps>`
+  ${props =>
+    props.perspective === 'vertical' &&
+    css`
+      & + div {
+        margin-top: 8px;
+      }
+    `}
+  ${props =>
+    props.perspective === 'horizontal' &&
+    css`
+      & + div {
+        margin-top: 0;
+        margin-left: 8px;
+      }
+    `}
 `;
 
 export const Title = styled.p`

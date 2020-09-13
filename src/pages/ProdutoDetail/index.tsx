@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { RiUser6Line, RiKey2Fill } from 'react-icons/ri';
+import { useParams } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Form, Container } from './styles';
+import { Form, Container, InputsContainer } from './styles';
 
 const ProdutoDetail: React.FC = () => {
   const { id = '' } = useParams();
@@ -14,37 +13,48 @@ const ProdutoDetail: React.FC = () => {
     <Container>
       <header>{id ? 'Edição de produto' : 'Criar Produto'}</header>
       <Form onSubmit={handleSubmit}>
-        <Input
-          description="Nome do produto"
-          name="nomeProduto"
-          type="text"
-          placeholder="Produto"
-        />
-        <Input
-          description="Quantidade em estoque"
-          name="qtdEstq"
-          type="text"
-          placeholder="00"
-        />
-        <Input
-          description="Marca"
-          name="nome"
-          type="text"
-          placeholder="Marca"
-        />
-        <Input
-          description="Valor do produto"
-          name="nome"
-          type="text"
-          placeholder="R$ 00,00"
-        />
-        <Input description="Data Validade" name="dtVld" type="Date" />
-
+        <InputsContainer>
+          <Input
+            perspective="horizontal"
+            description="Nome do produto"
+            name="nmProduto"
+            type="text"
+            placeholder="Produto"
+          />
+          <Input
+            perspective="horizontal"
+            description="Quantidade em estoque"
+            name="qtdEstoque"
+            type="text"
+            placeholder="00"
+          />
+          <Input
+            perspective="horizontal"
+            description="Marca"
+            name="marca"
+            type="text"
+            placeholder="Marca"
+          />
+          <Input
+            perspective="horizontal"
+            description="Valor do produto"
+            name="vlProduto"
+            type="text"
+            placeholder="R$ 00,00"
+          />
+          <Input
+            perspective="horizontal"
+            description="Data Validade"
+            name="dtValidade"
+            type="Date"
+          />
+        </InputsContainer>
         <hr />
-
-        <Button type="submit">
-          {id ? 'Edição de produto' : 'Criar Produto'}
-        </Button>
+        <div>
+          <Button type="submit">
+            {id ? 'Salvar edição' : 'Criar Produto'}
+          </Button>
+        </div>
       </Form>
     </Container>
   );

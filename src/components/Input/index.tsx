@@ -8,15 +8,17 @@ import React, {
 import { IconBaseProps } from 'react-icons';
 import { FiAlertCircle } from 'react-icons/fi';
 import { useField } from '@unform/core';
-import { Title, Container, Error } from './styles';
+import { Container, ContainerInput, Title, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  perspective?: 'horizontal' | 'vertical';
   description?: string;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
 const Input: React.FC<InputProps> = ({
+  perspective = 'vertical',
   name,
   description,
   icon: Icon,
@@ -47,9 +49,13 @@ const Input: React.FC<InputProps> = ({
   }, []);
 
   return (
-    <div>
+    <Container perspective={perspective}>
       {description && <Title>{description}</Title>}
-      <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
+      <ContainerInput
+        isErrored={!!error}
+        isFilled={isFilled}
+        isFocused={isFocused}
+      >
         {Icon && <Icon size={20} />}
 
         <input
@@ -65,8 +71,8 @@ const Input: React.FC<InputProps> = ({
             <FiAlertCircle color="#c53030" size={20} />
           </Error>
         )}
-      </Container>
-    </div>
+      </ContainerInput>
+    </Container>
   );
 };
 
