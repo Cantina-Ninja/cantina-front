@@ -10,6 +10,7 @@ import Vendas from '../pages/Vendas';
 import SignIn from '../pages/SignIn';
 
 import Route from './Route';
+import UsuariosDetail from '../pages/UsuariosDetail';
 
 const Routes: React.FC = () => (
   <>
@@ -27,7 +28,11 @@ const Routes: React.FC = () => (
       <Route path="/produtos/:id/edit" isPrivate component={ProdutoDetail} />
       <Route path="/produtos/new" isPrivate component={ProdutoDetail} />
 
-      <Route path="/usuarios" isPrivate activeMenu component={Usuarios} />
+      <Route path="/usuarios" exact isPrivate activeMenu component={Usuarios} />
+
+      <Route path="/usuarios/:id/edit" isPrivate component={UsuariosDetail} />
+      <Route path="/usuarios/new" isPrivate component={UsuariosDetail} />
+
       <Route path="/vendas" isPrivate activeMenu component={Vendas} />
     </Switch>
   </>

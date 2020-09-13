@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
-import { Main, CardsContainer } from './styles';
+import { Main, CardsContainer, ContainerProdutos } from './styles';
 import formatValue from '../../utils/formatValue';
 
 import api from '../../services/api';
@@ -55,7 +55,7 @@ const Produtos: React.FC = () => {
         />
       </CardsContainer>
       <hr />
-      <section className="combos-produtos">
+      <ContainerProdutos>
         <Table
           columns={['Produtos', 'Validade', 'Quantidade', 'Valor']}
           rows={produtos}
@@ -63,7 +63,7 @@ const Produtos: React.FC = () => {
           routeRemove="produtos"
           stateRows={setProdutos}
         />
-      </section>
+      </ContainerProdutos>
     </Main>
   );
 };

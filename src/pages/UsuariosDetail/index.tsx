@@ -1,58 +1,53 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { FormHandles } from '@unform/core';
+import { RiUser6Fill, RiAdminLine, RiLockPasswordLine } from 'react-icons/ri';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { Form, Container, InputsContainer } from './styles';
 
-const ProdutoDetail: React.FC = () => {
+const UsuariosDetail: React.FC = () => {
   const { id = '' }: any = useParams();
   const handleSubmit = useCallback(async (data: any) => {}, []);
   return (
     <Container>
-      <header>{id ? 'Alteração de produto' : 'Criar produto'}</header>
+      <header>{id ? 'Edição de usuário' : 'Criar usuário'}</header>
       <Form onSubmit={handleSubmit}>
         <InputsContainer>
           <Input
+            icon={RiUser6Fill}
             perspective="horizontal"
-            description="Nome do produto"
-            name="nmProduto"
+            description="Nome do usuário"
+            name="nmUsuario"
             type="text"
-            placeholder="Produto"
           />
           <Input
+            icon={RiAdminLine}
             perspective="horizontal"
-            description="Quantidade em estoque"
-            name="qtdEstoque"
+            description="Permissão"
+            name="tpPermissao"
             type="text"
-            placeholder="00"
           />
           <Input
+            icon={RiLockPasswordLine}
             perspective="horizontal"
-            description="Marca"
-            name="marca"
+            description="Senha"
+            name="pwUsuario"
             type="text"
-            placeholder="Marca"
           />
           <Input
+            icon={RiLockPasswordLine}
             perspective="horizontal"
-            description="Valor do produto"
-            name="vlProduto"
+            description="Confirmar senha"
+            name="pwUsuario"
             type="text"
-            placeholder="R$ 00,00"
-          />
-          <Input
-            perspective="horizontal"
-            description="Data Validade"
-            name="dtValidade"
-            type="Date"
           />
         </InputsContainer>
         <hr />
         <div>
           <Button type="submit">
-            {id ? 'Alterar produto' : 'Criar produto'}
+            {id ? 'Alterar usuário' : 'Criar usuário'}
           </Button>
         </div>
       </Form>
@@ -60,4 +55,4 @@ const ProdutoDetail: React.FC = () => {
   );
 };
 
-export default ProdutoDetail;
+export default UsuariosDetail;

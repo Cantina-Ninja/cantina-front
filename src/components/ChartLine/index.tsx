@@ -11,9 +11,12 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
   useEffect(() => {
     const ctx: any = canvasElm?.current?.getContext('2d');
 
-    const gradientBg = ctx.createLinearGradient(0, 0, 0, 500);
+    const gradientBg = ctx.createLinearGradient(0, 0, 0, 600);
     gradientBg.addColorStop(0, '#7C67FF');
     gradientBg.addColorStop(1, 'transparent');
+
+    // ctx.canvas.parentNode.style.height = '800px';
+    // ctx.canvas.parentNode.style.width = '2000px';
 
     new Chart(ctx, {
       type: 'line',

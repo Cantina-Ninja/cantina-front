@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import ChartLine from '../../components/ChartLine';
 import Card from '../../components/Card';
 import { Main, ContainerChart, CardsContainer } from './styles';
@@ -18,6 +18,12 @@ const Dashboard: React.FC = () => {
     500,
     4000,
   ];
+
+  const { innerWidth }: any = window;
+
+  useLayoutEffect(() => {
+    console.log(innerWidth);
+  }, [innerWidth]);
 
   return (
     <Main>
