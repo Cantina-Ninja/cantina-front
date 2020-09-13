@@ -13,10 +13,6 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
     gradientBg.addColorStop(0, '#7C67FF');
     gradientBg.addColorStop(1, 'transparent');
 
-    const gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
-    gradientStroke.addColorStop(0, '#7C67FF');
-    gradientStroke.addColorStop(1, '#7C67FF');
-
     new Chart(ctx, {
       type: 'line',
       options: {
@@ -24,6 +20,7 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
         animation: {
           easing: 'easeInOutBack',
         },
+        // grid
         scales: {
           xAxes: [
             {
@@ -40,8 +37,23 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
             },
           ],
         },
+        // curvas
+        elements: {
+          line: {
+            tension: 0,
+          },
+        },
+        // legendas
+        legend: {
+          display: false,
+          labels: {
+            fontColor: '#fff',
+            fontSize: 16,
+          },
+        },
       },
       data: {
+        // colunas
         labels: [
           'Janeiro',
           'Fevereiro',
@@ -58,7 +70,17 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
         ],
         datasets: [
           {
+            borderWidth: 1,
+            backgroundColor: gradientBg,
+            borderColor: '#7C67FF',
+            pointRadius: 5,
+            pointBorderColor: '#fff',
+            pointBackgroundColor: '#fff',
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 10,
+            pointStyle: 'circle',
             label: 'R$',
+            // dados das colunas
             data: [
               1500,
               200,
@@ -73,16 +95,17 @@ const ChartLine: React.FC<CanvasProps> = ({ ...rest }) => {
               500,
               4000,
             ],
-            backgroundColor: gradientBg,
-            borderColor: gradientStroke,
-            borderWidth: 1,
           },
         ],
       },
     });
   }, []);
 
-  return <canvas ref={canvasElm} {...rest} />;
+  return (
+    <canvas ref={canvasElm} {...rest}>
+      Your browser does not support the canvas element.
+    </canvas>
+  );
 };
 
 export default ChartLine;
