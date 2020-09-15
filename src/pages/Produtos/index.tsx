@@ -10,9 +10,9 @@ interface ProdutosProps {
   readonly id?: number;
   readonly skuProduto?: number;
   readonly nomeProduto: string;
+  readonly marca: string;
   readonly validade: string;
   readonly qtdEstoque: number;
-  readonly marca?: string;
   readonly valorUnit: number | string;
 }
 
@@ -24,10 +24,18 @@ const Produtos: React.FC = () => {
 
     setProdutos(
       data.map(
-        ({ skuProduto, nomeProduto, validade, qtdEstoque, valorUnit }) => {
+        ({
+          skuProduto,
+          nomeProduto,
+          marca,
+          validade,
+          qtdEstoque,
+          valorUnit,
+        }) => {
           return {
             id: skuProduto,
             nomeProduto,
+            marca,
             validade: new Date(validade).toLocaleDateString('pt-br'),
             qtdEstoque,
             valorUnit: formatValue(Number(valorUnit)),
@@ -57,7 +65,7 @@ const Produtos: React.FC = () => {
       <hr />
       <ContainerProdutos>
         <Table
-          columns={['Produtos', 'Validade', 'Quantidade', 'Valor']}
+          columns={['Produtos', 'Marca', 'Validade', 'Quantidade', 'Valor']}
           rows={produtos}
           routeEdit="produtos"
           routeRemove="produtos"
