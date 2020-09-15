@@ -25,17 +25,17 @@ export const TableItem: React.FC<TableProps> = ({
       {Object.entries(rows).map(([a, b]: any) => {
         if (a === 'validade' && getExpiredProduct(b))
           return (
-            <td key={a}>
+            <td key={Math.random()}>
               <div className="validity--expired">{b}</div>
             </td>
           );
         if (a === 'validade')
           return (
-            <td key={a}>
+            <td key={Math.random()}>
               <div className="validity">{b}</div>
             </td>
           );
-        return a !== 'id' && <td key={a}>{b}</td>;
+        return a !== 'id' && <td key={Math.random()}>{b}</td>;
       })}
       <td>
         {routeEdit && (

@@ -34,11 +34,22 @@ const Dashboard: React.FC = () => {
       <hr />
       <CardsContainer>
         <Card
-          title="Produtos"
-          backgroundColor="#FFC700"
-          valueColor="#000"
-          value="111"
-          route="/produtos/new"
+          title="Vendas do dia"
+          backgroundColor="#6859EA"
+          valueColor="#fff"
+          value="1K"
+        />
+        <Card
+          title="Meta diaria"
+          backgroundColor="#1C1F20"
+          valueColor="#fff"
+          value="2K"
+        />
+        <Card
+          title="Vendas do mês"
+          backgroundColor="#1C1F20"
+          valueColor="#fff"
+          value="20K"
         />
       </CardsContainer>
     </Main>
