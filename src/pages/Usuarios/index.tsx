@@ -37,7 +37,7 @@ const Usuarios: React.FC = () => {
 
   return (
     <Main>
-      <header>Usuarios</header>
+      <header>Usuários</header>
       <ContainerUsuarios>
         <Table
           columns={['Usuarios', 'Acesso']}
