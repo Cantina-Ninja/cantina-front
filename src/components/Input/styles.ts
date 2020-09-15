@@ -88,10 +88,9 @@ export const Container = styled.div<ContainerProps>`
   ${props =>
     props.perspective === 'horizontal' &&
     css`
-      & + div {
-        margin-top: 0;
-        margin-left: 8px;
-      }
+      margin-top: 20px;
+      margin-left: 8px;
+      margin-right: 8px;
     `}
 `;
 

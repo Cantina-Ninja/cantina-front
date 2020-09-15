@@ -56,7 +56,7 @@ const UsuariosDetail: React.FC = () => {
           <Input
             icon={RiLockPasswordLine}
             perspective="horizontal"
-            description="senha"
+            description="Senha"
             name="pw"
             type="password"
           />

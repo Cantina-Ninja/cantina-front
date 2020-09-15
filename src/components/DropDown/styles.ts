@@ -15,17 +15,14 @@ export const Container = styled('div')<ContainerProps>`
   ${props =>
     props.perspective === 'vertical' &&
     css`
-      & + div {
-        margin-top: 8px;
-      }
+      margin-top: 8px;
     `}
   ${props =>
     props.perspective === 'horizontal' &&
     css`
-      & + div {
-        margin-top: 0;
-        margin-left: 8px;
-      }
+      margin-top: 20px;
+      margin-left: 4px;
+      margin-right: 4px;
     `}
 `;
 
