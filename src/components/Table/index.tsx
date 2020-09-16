@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
+import { MdModeEdit, MdDeleteForever, MdInfo } from 'react-icons/md';
 import { Container } from './styles';
 import api from '../../services/api';
 import getExpiredProduct from '../../utils/getExpiredProduct';
@@ -9,6 +9,7 @@ export interface TableProps {
   columns?: string[] | [];
   rows: object[];
   routeEdit?: string;
+  routeView?: string;
   routeRemove?: string;
   handleRemoveRow?: Function;
   stateRows?: any;
@@ -17,6 +18,7 @@ export interface TableProps {
 export const TableItem: React.FC<TableProps> = ({
   rows,
   routeEdit,
+  routeView,
   routeRemove,
   handleRemoveRow,
 }: any) => {
@@ -38,14 +40,19 @@ export const TableItem: React.FC<TableProps> = ({
         return a !== 'id' && <td key={Math.random()}>{b}</td>;
       })}
       <td>
+        {routeView && (
+          <Link to={`${routeView}/${rows.id}/view`}>
+            <MdInfo title="Mais detalhes" />
+          </Link>
+        )}
         {routeEdit && (
           <Link to={`${routeEdit}/${rows.id}/edit`}>
-            <MdModeEdit />
+            <MdModeEdit title="Editar" />
           </Link>
         )}
         {routeRemove && (
           <button type="button" onClick={() => handleRemoveRow(rows.id)}>
-            <MdDeleteForever />
+            <MdDeleteForever title="Remover" />
           </button>
         )}
       </td>
@@ -57,6 +64,7 @@ const Table: React.FC<TableProps> = ({
   columns = [],
   rows,
   routeEdit,
+  routeView,
   routeRemove,
   stateRows,
 }) => {
@@ -88,6 +96,7 @@ const Table: React.FC<TableProps> = ({
             key={item.id}
             rows={item}
             routeEdit={routeEdit}
+            routeView={routeView}
             routeRemove={routeRemove}
             handleRemoveRow={handleRemoveRow}
           />
