@@ -14,5 +14,5 @@ export default function getFormatCpf(data: string): string {
       return cpf;
     }
   }
-  return 'CPF invalido';
+  return 'CPF inválido';
 }
