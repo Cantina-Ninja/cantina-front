@@ -8,7 +8,9 @@ import { Form, Container, InputsContainer } from './styles';
 
 const ProdutoDetail: React.FC = () => {
   const { id = '' }: any = useParams();
-  const handleSubmit = useCallback(async (data: any) => {}, []);
+  const handleSubmit = useCallback(async (data: any) => {
+    console.log(data);
+  }, []);
   return (
     <Container>
       <header>{id ? 'Alteração de produto' : 'Criar produto'}</header>

@@ -15,6 +15,10 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
   }
 
+  ul {
+    list-style: none;
+  }
+
   body, input, button {
     font-size: 16px;
   }

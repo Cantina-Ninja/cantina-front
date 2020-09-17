@@ -56,8 +56,8 @@ const Produtos: React.FC = () => {
       <CardsContainer>
         <Card
           title="Produtos"
-          backgroundColor="#FFC700"
-          valueColor="#000"
+          backgroundColor="#6859EA"
+          valueColor="#fff"
           value={`${produtos.length}`}
           route="/produtos/new"
         />

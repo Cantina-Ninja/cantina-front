@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Main, ContainerVendas } from './styles';
+import { number } from 'yup';
+import { Main, ContainerVendas, CardsContainer } from './styles';
 
-import Table from '../../components/Table';
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
-import formaCpf from '../../utils/formatCpf';
+import formatCpf from '../../utils/formatCpf';
+
+import Card from '../../components/Card';
+import Table from '../../components/Table';
 
 interface VendasProps {
   readonly id?: number;
@@ -17,16 +19,21 @@ interface VendasProps {
 
 const Vendas: React.FC = () => {
   const [vendas, setVendas] = useState<VendasProps[]>([]);
+  const [lucroTotal, setTotalLucro] = useState(0);
 
   const getVendas = useCallback(async () => {
     const { data } = await api.get<VendasProps[]>('vendas');
 
     setVendas(
       data.map(({ idVenda, cpf = '', valorTotal, dataVenda }) => {
+        setTotalLucro(
+          (prevTotalLucro): number => prevTotalLucro + Number(valorTotal),
+        );
+
         return {
           id: idVenda,
           idVenda,
-          cpf: formaCpf(cpf),
+          cpf: formatCpf(cpf),
           dataVenda: new Date(dataVenda).toLocaleDateString('pt-br'),
           valorTotal: formatValue(Number(valorTotal)),
         };
@@ -41,12 +48,26 @@ const Vendas: React.FC = () => {
   return (
     <Main>
       <header>Vendas</header>
+      <CardsContainer>
+        <Card
+          title="Qtd. vendas"
+          backgroundColor="#6859EA"
+          valueColor="#fff"
+          value={`${vendas.length}`}
+        />
+        <Card
+          title="Lucro total"
+          backgroundColor="#6859EA"
+          valueColor="#fff"
+          value={`${formatValue(lucroTotal)}`}
+        />
+      </CardsContainer>
+      <hr />
       <ContainerVendas>
         <Table
           columns={['Nro. venda', 'CPF', 'Data', 'Total']}
           rows={vendas}
           routeView="vendas"
-          stateRows={setVendas}
         />
       </ContainerVendas>
       <hr />
