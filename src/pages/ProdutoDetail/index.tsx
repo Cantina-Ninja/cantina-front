@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -20,6 +20,7 @@ interface ProdutoProps {
 const ProdutoDetail: React.FC = () => {
   const { id = '' }: any = useParams();
   const history = useHistory();
+  const [produto, setProduto] = useState<any>();
 
   const formRef = useRef<FormHandles>(null);
 
@@ -73,10 +74,29 @@ const ProdutoDetail: React.FC = () => {
     },
     [id],
   );
+
+  const getProduto = useCallback(async () => {
+    const { data } = await api.get<any>(`produtos/${id}`);
+
+    const [mes, dia, ano] = data.validade.split('/'); // TODO
+
+    setProduto({
+      nomeProduto: data.nomeProduto,
+      marca: data.marca,
+      qtdEstoque: data.qtdEstoque,
+      validade: `${ano}-${mes}-${dia}`,
+      valorUnit: data.valorUnit,
+    });
+  }, [id, setProduto]);
+
+  useEffect(() => {
+    getProduto();
+  }, [getProduto]);
+
   return (
     <Container>
       <header>{id ? 'Alteração de produto' : 'Criar produto'}</header>
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit} initialData={produto}>
         <InputsContainer>
           <Input
             perspective="horizontal"
