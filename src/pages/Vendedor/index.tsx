@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { RiUser6Line } from 'react-icons/ri';
 import { FaRegCreditCard } from 'react-icons/fa';
+import cpfMask from '../../utils/cpfMask';
 
 import formatValue from '../../utils/formatValue';
 
@@ -54,6 +55,7 @@ const dataPermission = [
 const Vendedor: React.FC = () => {
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
   const [cart, setCart] = useState<any[]>([]);
+  const [cpf, setCpf] = useState('000.000.000-00');
 
   const getProdutos = useCallback(async () => {
     const { data } = await api.get<ProdutosProps[]>('produtos');
@@ -117,6 +119,8 @@ const Vendedor: React.FC = () => {
               perspective="horizontal"
               description="CPF"
               name="confirmacaoSenha"
+              value={cpf}
+              onChange={e => setCpf(cpfMask(e.target.value))}
             />
             <DropDown
               data={dataPermission}
