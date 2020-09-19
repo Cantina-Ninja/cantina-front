@@ -24,12 +24,13 @@ const ProdutoDetail: React.FC = () => {
     async (data: ProdutoProps) => {
       try {
         formRef.current?.setErrors({});
+
         const schema = Yup.object().shape({
           nomeProduto: Yup.string().required('Nome do produto obrigatório'),
           validade: Yup.string().required('Validade do produto obrigatório'),
-          qtdEstoque: Yup.number().required('Quantidade estoque obrigatório'),
+          qtdEstoque: Yup.number().typeError('Apenas valores numéricos'),
           marca: Yup.string().required('Marca do produto obrigatório'),
-          valorUnit: Yup.number().required('Valor por unidade obrigatório'),
+          valorUnit: Yup.number().typeError('Apenas valores numéricos'),
         });
 
         await schema.validate(data, {

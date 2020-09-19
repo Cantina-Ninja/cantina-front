@@ -105,7 +105,11 @@ const Vendedor: React.FC = () => {
     <Container>
       <header>Vendedor</header>
 
-      <Form onSubmit={() => {}}>
+      <Form
+        onSubmit={e => {
+          console.log(e);
+        }}
+      >
         <ContainerHeader>
           <ContainerInfo>
             <ContainerItem>
