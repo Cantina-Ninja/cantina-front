@@ -1,25 +1,79 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import api from '../../services/api';
+import getValidationErros from '../../utils/getValidationErros';
 
 import { Form, Container, InputsContainer } from './styles';
 
+interface ProdutoProps {
+  readonly nomeProduto: string;
+  readonly validade: string;
+  readonly qtdEstoque: number;
+  readonly marca: string;
+  readonly valorUnit: number;
+}
+
 const ProdutoDetail: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const { id = '' }: any = useParams();
-  const handleSubmit = useCallback(async (data: any) => {
-    console.log(data);
-  }, []);
+  const handleSubmit = useCallback(
+    async (data: ProdutoProps) => {
+      try {
+        formRef.current?.setErrors({});
+        const schema = Yup.object().shape({
+          nomeProduto: Yup.string().required('Nome do produto obrigatório'),
+          validade: Yup.string().required('Validade do produto obrigatório'),
+          qtdEstoque: Yup.number().required('Quantidade estoque obrigatório'),
+          marca: Yup.string().required('Marca do produto obrigatório'),
+          valorUnit: Yup.number().required('Valor por unidade obrigatório'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        // Edit Product
+        if (id) {
+          await api.put(`produtos/${id}`, {
+            nomeProduto: data.nomeProduto,
+            marca: data.marca,
+            qtdEstoque: data.qtdEstoque,
+            validade: data.validade,
+            valorUnit: data.valorUnit,
+          });
+          return;
+        }
+
+        // Create User
+        await api.post('produtos', {
+          nomeProduto: data.nomeProduto,
+          marca: data.marca,
+          qtdEstoque: data.qtdEstoque,
+          validade: data.validade,
+          valorUnit: data.valorUnit,
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErros(err);
+          formRef.current?.setErrors(errors);
+        }
+      }
+    },
+    [id],
+  );
   return (
     <Container>
       <header>{id ? 'Alteração de produto' : 'Criar produto'}</header>
-      <Form onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <InputsContainer>
           <Input
             perspective="horizontal"
             description="Nome do produto"
-            name="nmProduto"
+            name="nomeProduto"
             type="text"
             placeholder="Produto"
           />
@@ -40,14 +94,14 @@ const ProdutoDetail: React.FC = () => {
           <Input
             perspective="horizontal"
             description="Valor do produto"
-            name="vlProduto"
+            name="valorUnit"
             type="text"
             placeholder="R$ 00,00"
           />
           <Input
             perspective="horizontal"
             description="Data Validade"
-            name="dtValidade"
+            name="validade"
             type="Date"
           />
         </InputsContainer>
