@@ -12,6 +12,7 @@ interface ContainerProps {
 }
 
 export const Container = styled('div')<ContainerProps>`
+  min-width: 300px;
   ${props =>
     props.perspective === 'vertical' &&
     css`

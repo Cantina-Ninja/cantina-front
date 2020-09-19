@@ -49,6 +49,7 @@ const VendaView: React.FC = () => {
 
   const getVenda = useCallback(async () => {
     const { data } = await api.get<VendaProps | any>(`vendas/${id}`);
+    const itens = data.itens || [];
 
     setVenda({
       cpf: data.cpf,
@@ -56,11 +57,11 @@ const VendaView: React.FC = () => {
       dataVenda: data.dataVenda,
       idVenda: data.idVenda,
       valorTotal: data.valorTotal,
-      nfe: data.nfe.chaveAcesso,
+      nfe: data?.nfe?.chaveAcesso,
     });
 
     setProdutos(
-      data.itens.map(
+      itens.map(
         ({ produto }: ItensProps): ProdutosProps => {
           return {
             id: produto.skuProduto,

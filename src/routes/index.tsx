@@ -7,6 +7,7 @@ import Produtos from '../pages/Produtos';
 import ProdutoDetail from '../pages/ProdutoDetail';
 import Usuarios from '../pages/Usuarios';
 import Vendas from '../pages/Vendas';
+import Vendedor from '../pages/Vendedor';
 import VendaView from '../pages/VendaView';
 import SignIn from '../pages/SignIn';
 
@@ -36,6 +37,8 @@ const Routes: React.FC = () => (
 
       <Route path="/vendas" exact isPrivate activeMenu component={Vendas} />
       <Route path="/vendas/:id/view" isPrivate component={VendaView} />
+
+      <Route path="/vendedor" isPrivate activeMenu component={Vendedor} />
     </Switch>
   </>
 );
