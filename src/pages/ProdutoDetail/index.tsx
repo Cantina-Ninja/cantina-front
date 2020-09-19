@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import Input from '../../components/Input';
@@ -18,8 +18,11 @@ interface ProdutoProps {
 }
 
 const ProdutoDetail: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
   const { id = '' }: any = useParams();
+  const history = useHistory();
+
+  const formRef = useRef<FormHandles>(null);
+
   const handleSubmit = useCallback(
     async (data: ProdutoProps) => {
       try {
@@ -37,26 +40,30 @@ const ProdutoDetail: React.FC = () => {
           abortEarly: false,
         });
 
-        // Edit Product
+        const [ano, mes, dia] = data.validade.split('-'); // TODO
+
         if (id) {
+          // Edit Product
           await api.put(`produtos/${id}`, {
             nomeProduto: data.nomeProduto,
             marca: data.marca,
             qtdEstoque: data.qtdEstoque,
-            validade: data.validade,
+            validade: `${mes}/${dia}/${ano} 00:00`,
             valorUnit: data.valorUnit,
           });
-          return;
+        } else {
+          // Create Product
+          await api.post('produtos', {
+            nomeProduto: data.nomeProduto,
+            marca: data.marca,
+            qtdEstoque: data.qtdEstoque,
+            validade: `${mes}/${dia}/${ano} 00:00`,
+            valorUnit: data.valorUnit,
+          });
         }
 
-        // Create User
-        await api.post('produtos', {
-          nomeProduto: data.nomeProduto,
-          marca: data.marca,
-          qtdEstoque: data.qtdEstoque,
-          validade: data.validade,
-          valorUnit: data.valorUnit,
-        });
+        // Redirect
+        history.push('/produtos');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);
