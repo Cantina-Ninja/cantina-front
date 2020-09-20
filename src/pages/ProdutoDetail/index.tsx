@@ -49,7 +49,7 @@ const ProdutoDetail: React.FC = () => {
             nomeProduto: data.nomeProduto,
             marca: data.marca,
             qtdEstoque: data.qtdEstoque,
-            validade: `${mes}/${dia}/${ano} 00:00`,
+            validade: `${ano}/${mes}/${dia}`,
             valorUnit: data.valorUnit,
           });
         } else {
@@ -58,7 +58,7 @@ const ProdutoDetail: React.FC = () => {
             nomeProduto: data.nomeProduto,
             marca: data.marca,
             qtdEstoque: data.qtdEstoque,
-            validade: `${mes}/${dia}/${ano} 00:00`,
+            validade: `${ano}/${mes}/${dia}`,
             valorUnit: data.valorUnit,
           });
         }
@@ -78,7 +78,7 @@ const ProdutoDetail: React.FC = () => {
   const getProduto = useCallback(async () => {
     const { data } = await api.get<any>(`produtos/${id}`);
 
-    const [mes, dia, ano] = data.validade.split('/'); // TODO
+    const [ano, mes, dia] = data.validade.split('/'); // TODO
 
     setProduto({
       nomeProduto: data.nomeProduto,
@@ -90,8 +90,11 @@ const ProdutoDetail: React.FC = () => {
   }, [id, setProduto]);
 
   useEffect(() => {
-    getProduto();
-  }, [getProduto]);
+    if (id) {
+      // Edit Product
+      getProduto();
+    }
+  }, [getProduto, id]);
 
   return (
     <Container>
