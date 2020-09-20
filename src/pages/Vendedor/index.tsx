@@ -36,6 +36,20 @@ interface ProdutosProps {
   readonly valorUnit: any[];
 }
 
+interface ItemsProps {
+  content: ProdutosProps[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: any;
+  size: number;
+  sort: any;
+  totalElements: number;
+  totalPages: number;
+}
+
 const dataPermission = [
   {
     key: 'credit',
@@ -52,15 +66,17 @@ const dataPermission = [
 ];
 
 const Vendedor: React.FC = () => {
-  const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
   const [cart, setCart] = useState<any[]>([]);
   const [cpf, setCpf] = useState('000.000.000-00');
 
+  const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
+
   const getProdutos = useCallback(async () => {
-    const { data } = await api.get<ProdutosProps[]>('produtos');
+    const { data } = await api.get<ItemsProps>('produtos');
+    const { content } = data;
 
     setProdutos(
-      data.map(
+      content.map(
         ({
           skuProduto,
           nomeProduto,
