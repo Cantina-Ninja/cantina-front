@@ -8,14 +8,14 @@ import api from '../../services/api';
 import getValidationErros from '../../utils/getValidationErros';
 
 import { Form, Container, InputsContainer } from './styles';
-import { currencyMask } from '../../utils/currecyMask';
+import { currencyMask, currencyNumber } from '../../utils/currecyMask';
 
 interface ProdutoProps {
   readonly nomeProduto: string;
   readonly validade: string;
   readonly qtdEstoque: number;
   readonly marca: string;
-  readonly valorUnit: number;
+  readonly valorUnit: string;
 }
 
 const ProdutoDetail: React.FC = () => {
@@ -36,7 +36,7 @@ const ProdutoDetail: React.FC = () => {
           validade: Yup.string().required('Validade do produto obrigatório'),
           qtdEstoque: Yup.number().typeError('Apenas valores numéricos'),
           marca: Yup.string().required('Marca do produto obrigatório'),
-          valorUnit: Yup.number().typeError('Apenas valores numéricos'),
+          valorUnit: Yup.string().required('Valor unitário obrigatório'),
         });
 
         await schema.validate(data, {
@@ -52,7 +52,7 @@ const ProdutoDetail: React.FC = () => {
             marca: data.marca,
             qtdEstoque: data.qtdEstoque,
             validade: `${ano}/${mes}/${dia}`,
-            valorUnit: data.valorUnit,
+            valorUnit: currencyNumber(data.valorUnit),
           });
         } else {
           // Create Product
@@ -61,7 +61,7 @@ const ProdutoDetail: React.FC = () => {
             marca: data.marca,
             qtdEstoque: data.qtdEstoque,
             validade: `${ano}/${mes}/${dia}`,
-            valorUnit: data.valorUnit,
+            valorUnit: currencyNumber(data.valorUnit),
           });
         }
 
@@ -87,8 +87,9 @@ const ProdutoDetail: React.FC = () => {
       marca: data.marca,
       qtdEstoque: data.qtdEstoque,
       validade: `${ano}-${mes}-${dia}`,
-      valorUnit: data.valorUnit,
     });
+
+    setValorUnit(currencyMask(String(data.valorUnit)));
   }, [id, setProduto]);
 
   useEffect(() => {

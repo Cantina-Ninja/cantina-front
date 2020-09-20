@@ -16,14 +16,29 @@ interface ProdutosProps {
   readonly valorUnit: number | string;
 }
 
+interface ItemsProps {
+  content: ProdutosProps[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: any;
+  size: number;
+  sort: any;
+  totalElements: number;
+  totalPages: number;
+}
+
 const Produtos: React.FC = () => {
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
 
   const getProdutos = useCallback(async () => {
-    const { data } = await api.get<ProdutosProps[]>('produtos');
+    const { data } = await api.get<ItemsProps>('produtos');
+    const { content } = data;
 
     setProdutos(
-      data.map(
+      content.map(
         ({
           skuProduto,
           nomeProduto,
