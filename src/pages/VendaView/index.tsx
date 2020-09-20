@@ -61,18 +61,17 @@ const VendaView: React.FC = () => {
     });
 
     setProdutos(
-      itens.map(
-        ({ produto }: ItensProps): ProdutosProps => {
-          return {
-            id: produto.skuProduto,
-            nomeProduto: produto.nomeProduto,
-            marca: produto.marca,
-            validade: new Date(produto.validade).toLocaleDateString('pt-br'),
-            qtdEstoque: produto.qtdEstoque,
-            valorUnit: formatValue(Number(produto.valorUnit)),
-          };
-        },
-      ),
+      itens.map(({ subTotal, quantidade, produto }: ItensProps) => {
+        return {
+          id: produto.skuProduto,
+          nomeProduto: produto.nomeProduto,
+          marca: produto.marca,
+          validade: new Date(produto.validade).toLocaleDateString('pt-br'),
+          quantidade,
+          valorUnit: formatValue(Number(produto.valorUnit)),
+          subTotal: formatValue(Number(subTotal)),
+        };
+      }),
     );
   }, [id, setProdutos]);
 
@@ -111,7 +110,14 @@ const VendaView: React.FC = () => {
       </ContainerInfo>
       <hr />
       <Table
-        columns={['Produtos', 'Marca', 'Validade', 'Quantidade', 'Valor']}
+        columns={[
+          'Produtos',
+          'Marca',
+          'Validade',
+          'Quantidade',
+          'Valor unidade',
+          'Subtotal',
+        ]}
         rows={produtos}
       />
       <ContainerVendas />
