@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
 import { Main, CardsContainer, ContainerProdutos } from './styles';
-import formatValue from '../../utils/formatValue';
+import formatCurrency from '../../utils/formatCurrency';
 
 import api from '../../services/api';
 
@@ -38,7 +38,7 @@ const Produtos: React.FC = () => {
             marca,
             validade: new Date(validade).toLocaleDateString('pt-br'),
             qtdEstoque,
-            valorUnit: formatValue(Number(valorUnit)),
+            valorUnit: formatCurrency(Number(valorUnit)),
           };
         },
       ),

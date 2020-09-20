@@ -8,6 +8,7 @@ import api from '../../services/api';
 import getValidationErros from '../../utils/getValidationErros';
 
 import { Form, Container, InputsContainer } from './styles';
+import { currencyMask } from '../../utils/currecyMask';
 
 interface ProdutoProps {
   readonly nomeProduto: string;
@@ -21,6 +22,7 @@ const ProdutoDetail: React.FC = () => {
   const { id = '' }: any = useParams();
   const history = useHistory();
   const [produto, setProduto] = useState<any>();
+  const [valorUnit, setValorUnit] = useState(currencyMask('100'));
 
   const formRef = useRef<FormHandles>(null);
 
@@ -72,7 +74,7 @@ const ProdutoDetail: React.FC = () => {
         }
       }
     },
-    [id],
+    [id, history],
   );
 
   const getProduto = useCallback(async () => {
@@ -127,6 +129,8 @@ const ProdutoDetail: React.FC = () => {
             description="Valor do produto"
             name="valorUnit"
             type="text"
+            value={valorUnit}
+            onChange={e => setValorUnit(currencyMask(e.target.value))}
             placeholder="R$ 00,00"
           />
           <Input

@@ -1,11 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { RiUser6Line } from 'react-icons/ri';
 import { FaRegCreditCard } from 'react-icons/fa';
 import cpfMask from '../../utils/cpfMask';
 
-import formatValue from '../../utils/formatValue';
+import formatValue from '../../utils/formatCurrency';
 
 import Button from '../../components/Button';
 import Table from '../../components/Table';

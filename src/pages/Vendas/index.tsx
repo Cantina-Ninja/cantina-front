@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { number } from 'yup';
 import { Main, ContainerVendas, CardsContainer } from './styles';
 
 import api from '../../services/api';
-import formatValue from '../../utils/formatValue';
+import formatCurrency from '../../utils/formatCurrency';
 import formatCpf from '../../utils/formatCpf';
 
 import Card from '../../components/Card';
@@ -35,7 +34,7 @@ const Vendas: React.FC = () => {
           idVenda,
           cpf: formatCpf(cpf),
           dataVenda: new Date(dataVenda).toLocaleDateString('pt-br'),
-          valorTotal: formatValue(Number(valorTotal)),
+          valorTotal: formatCurrency(Number(valorTotal)),
         };
       }),
     );
@@ -59,7 +58,7 @@ const Vendas: React.FC = () => {
           title="Lucro total"
           backgroundColor="#6859EA"
           valueColor="#fff"
-          value={`${formatValue(lucroTotal)}`}
+          value={`${formatCurrency(lucroTotal)}`}
         />
       </CardsContainer>
       <hr />

@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import formatValue from '../../utils/formatValue';
+import formatCurrency from '../../utils/formatCurrency';
 import formatCpf from '../../utils/formatCpf';
 import Table from '../../components/Table';
 
@@ -68,8 +68,8 @@ const VendaView: React.FC = () => {
           marca: produto.marca,
           validade: new Date(produto.validade).toLocaleDateString('pt-br'),
           quantidade,
-          valorUnit: formatValue(Number(produto.valorUnit)),
-          subTotal: formatValue(Number(subTotal)),
+          valorUnit: formatCurrency(Number(produto.valorUnit)),
+          subTotal: formatCurrency(Number(subTotal)),
         };
       }),
     );
@@ -101,7 +101,7 @@ const VendaView: React.FC = () => {
         </ContainerItem>
         <ContainerItem>
           <h3>Total</h3>
-          <p>{formatValue(venda?.valorTotal || 0)}</p>
+          <p>{formatCurrency(venda?.valorTotal || 0)}</p>
         </ContainerItem>
         <ContainerItem>
           <h3>Chave NFE</h3>
