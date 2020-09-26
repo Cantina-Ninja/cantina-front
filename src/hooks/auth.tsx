@@ -65,11 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
   api.interceptors.response.use(
     response => response,
     error => {
-      if (
-        error.response.status === 403 ||
-        error.response.status === 400 ||
-        error.response.status === 401
-      ) {
+      if (error.response.status === 403 || error.response.status === 401) {
         signOut();
       }
     },
