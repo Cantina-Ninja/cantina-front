@@ -14,21 +14,22 @@ interface UsuariosProps {
 
 const Usuarios: React.FC = () => {
   const history = useHistory();
-
   const [usuarios, setUsuarios] = useState<UsuariosProps[]>([]);
 
   const getUsuarios = useCallback(async () => {
-    const { data } = await api.get<UsuariosProps[]>('usuarios');
+    await api.get<UsuariosProps[]>('usuarios').then((response: any) => {
+      if (!response?.error) return;
 
-    setUsuarios(
-      data.map(({ id, nome, tipoPerfil = '%' }) => {
-        return {
-          id,
-          nome,
-          tipoPerfil,
-        };
-      }),
-    );
+      setUsuarios(
+        response.data.map(({ id, nome, tipoPerfil = '%' }: any) => {
+          return {
+            id,
+            nome,
+            tipoPerfil,
+          };
+        }),
+      );
+    });
   }, []);
 
   useEffect(() => {

@@ -61,6 +61,16 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
+  // Response interceptor for API calls
+  api.interceptors.response.use(
+    response => response,
+    error => {
+      if (error.response.status === 403 || error.response.status === 400) {
+        signOut();
+      }
+    },
+  );
+
   return (
     <AuthContext.Provider
       value={{
