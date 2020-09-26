@@ -55,7 +55,7 @@ const Vendas: React.FC = () => {
           value={`${vendas.length}`}
         />
         <Card
-          title="Lucro total"
+          title="Total em vendas"
           backgroundColor="#6859EA"
           valueColor="#fff"
           value={`${formatCurrency(lucroTotal)}`}

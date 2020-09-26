@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { RiUser6Line, RiKey2Fill } from 'react-icons/ri';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
@@ -19,7 +19,7 @@ interface SignInData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const history = useHistory();
+  // const history = useHistory();
 
   const { signIn } = useAuth();
 
@@ -40,8 +40,6 @@ const SignIn: React.FC = () => {
         nome: data.nome,
         senha: data.senha,
       });
-
-      history.push('/dashboard');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErros(err);

@@ -12,6 +12,7 @@ import { useAuth } from '../hooks/auth';
 
 interface RouteProps extends ReactDOMRouterProps {
   isPrivate?: boolean;
+  authorisedUsers?: string;
   activeMenu?: boolean;
   component: React.ComponentType;
 }
@@ -36,15 +37,39 @@ const Navigation: React.FC = () => {
   );
 };
 
+const RedirectRoute: React.FC<any> = ({
+  roleRoute,
+  location,
+  component: Component,
+}) => {
+  const roles = useAuth()?.roles || '';
+
+  if (roles.indexOf(roleRoute) > -1) return <Component />;
+
+  return (
+    <Redirect
+      to={{
+        pathname: '/error',
+        state: { from: location },
+      }}
+    />
+  );
+};
+
 const Route: React.FC<RouteProps> = ({
   isPrivate = false,
+  authorisedUsers = '',
   activeMenu = false,
   component: Component,
   ...rest
-}) => {
-  const { token, nome, rule } = useAuth();
+}: any) => {
   const { isMenuOpen } = useContext(MenuContext);
-  console.log(token, nome, rule);
+  const { nome } = useAuth();
+  const roles = useAuth()?.roles || '';
+
+  const rolePath =
+    roles.indexOf('ROLE_ADMIN') > -1 ? '/dashboard' : '/vendedor';
+
   return (
     <ReactDOMRoute
       {...rest}
@@ -60,7 +85,11 @@ const Route: React.FC<RouteProps> = ({
                   transition: 'all .6s',
                 }}
               >
-                <Component />
+                <RedirectRoute
+                  roleRoute={authorisedUsers}
+                  component={Component}
+                  location={location}
+                />
               </div>
             ) : (
               <Component />
@@ -69,7 +98,7 @@ const Route: React.FC<RouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: isPrivate ? '/' : '/dashboard',
+              pathname: isPrivate ? '/' : rolePath,
               state: { from: location },
             }}
           />

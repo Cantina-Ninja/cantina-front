@@ -129,7 +129,7 @@ const Vendedor: React.FC = () => {
           <ContainerInfo>
             <ContainerItem>
               <h3>Olá, vendedor(a)</h3>
-              <h1>Amanda Trevisan Julius Barbosa Pinto</h1>
+              <h1>Oceano Atlantico da Silva</h1>
             </ContainerItem>
           </ContainerInfo>
           <ContainerHeaderRight>

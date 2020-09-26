@@ -54,7 +54,7 @@ const VendaView: React.FC = () => {
     setVenda({
       cpf: data.cpf,
       formaPagamento: data.formaPagamento,
-      dataVenda: data.dataVenda,
+      dataVenda: new Date(data.dataVenda).toLocaleDateString('pt-br'),
       idVenda: data.idVenda,
       valorTotal: data.valorTotal,
       nfe: data?.nfe?.chaveAcesso,

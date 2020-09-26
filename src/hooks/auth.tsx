@@ -4,7 +4,7 @@ import api from '../services/api';
 interface AuthState {
   token: string;
   nome: string;
-  rule: string;
+  roles: string;
 }
 
 interface SignInCredentials {
@@ -15,7 +15,7 @@ interface SignInCredentials {
 interface AuthContextData {
   token: string;
   nome: string;
-  rule: string;
+  roles: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -26,11 +26,11 @@ const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@CantinaNinja:token');
     const nome = localStorage.getItem('@CantinaNinja:nome');
-    const rule = localStorage.getItem('@CantinaNinja:rule');
+    const roles = localStorage.getItem('@CantinaNinja:roles');
 
-    if (token && nome && rule) {
+    if (token && nome && roles) {
       api.defaults.headers.authorization = `Bearer ${token}`;
-      return { token, nome, rule };
+      return { token, nome, roles };
     }
 
     return {} as AuthState;
@@ -46,17 +46,17 @@ const AuthProvider: React.FC = ({ children }) => {
 
     localStorage.setItem('@CantinaNinja:token', token);
     localStorage.setItem('@CantinaNinja:nome', nome);
-    localStorage.setItem('@CantinaNinja:rule', tipoUsuario);
+    localStorage.setItem('@CantinaNinja:roles', tipoUsuario);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({ token, nome, rule: tipoUsuario });
+    setData({ token, nome, roles: tipoUsuario });
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@CantinaNinja:token');
     localStorage.removeItem('@CantinaNinja:nome');
-    localStorage.removeItem('@CantinaNinja:rule');
+    localStorage.removeItem('@CantinaNinja:roles');
 
     setData({} as AuthState);
   }, []);
@@ -66,7 +66,7 @@ const AuthProvider: React.FC = ({ children }) => {
       value={{
         token: data.token,
         nome: data.nome,
-        rule: data.rule,
+        roles: data.roles,
         signIn,
         signOut,
       }}

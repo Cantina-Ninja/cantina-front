@@ -22,23 +22,76 @@ const Routes: React.FC = () => (
         path="/dashboard"
         exact
         isPrivate
+        authorisedUsers="ADMIN"
         activeMenu
         component={Dashboard}
       />
-      <Route path="/produtos" exact isPrivate activeMenu component={Produtos} />
+      <Route
+        path="/produtos"
+        exact
+        isPrivate
+        authorisedUsers="ADMIN"
+        activeMenu
+        component={Produtos}
+      />
 
-      <Route path="/produtos/:id/edit" isPrivate component={ProdutoDetail} />
-      <Route path="/produtos/new" isPrivate component={ProdutoDetail} />
+      <Route
+        path="/produtos/:id/edit"
+        isPrivate
+        authorisedUsers="ADMIN"
+        component={ProdutoDetail}
+      />
+      <Route
+        path="/produtos/new"
+        isPrivate
+        authorisedUsers="ADMIN"
+        component={ProdutoDetail}
+      />
 
-      <Route path="/usuarios" exact isPrivate activeMenu component={Usuarios} />
+      <Route
+        path="/usuarios"
+        exact
+        isPrivate
+        authorisedUsers="ADMIN"
+        activeMenu
+        component={Usuarios}
+      />
 
-      <Route path="/usuarios/:id/edit" isPrivate component={UsuariosDetail} />
-      <Route path="/usuarios/new" isPrivate component={UsuariosDetail} />
+      <Route
+        path="/usuarios/:id/edit"
+        isPrivate
+        authorisedUsers="ADMIN"
+        component={UsuariosDetail}
+      />
+      <Route
+        path="/usuarios/new"
+        isPrivate
+        authorisedUsers="ADMIN"
+        component={UsuariosDetail}
+      />
 
-      <Route path="/vendas" exact isPrivate activeMenu component={Vendas} />
-      <Route path="/vendas/:id/view" isPrivate component={VendaView} />
+      <Route
+        path="/vendas"
+        exact
+        isPrivate
+        authorisedUsers="ADMIN"
+        activeMenu
+        component={Vendas}
+      />
+      <Route
+        path="/vendas/:id/view"
+        isPrivate
+        authorisedUsers="ADMIN"
+        component={VendaView}
+      />
 
-      <Route path="/vendedor" isPrivate activeMenu component={Vendedor} />
+      <Route
+        path="/vendedor"
+        isPrivate
+        authorisedUsers="USER"
+        activeMenu
+        component={Vendedor}
+      />
     </Switch>
   </>
 );
