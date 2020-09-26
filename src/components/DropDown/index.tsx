@@ -68,17 +68,34 @@ const DropDown: React.FC<DropDownProps> = ({
     setIsOpen(false);
   };
 
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  const {
+    fieldName,
+    defaultValue = { key: '', value: '' },
+    error,
+    registerField,
+  } = useField(name);
 
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: formRef.current,
       getValue: () => {
-        return selectedOption.key;
+        return selectedOption;
       },
     });
-  }, [selectedOption, fieldName, registerField]);
+
+    // setSelectedOption(defaultValue);
+  }, [
+    selectedOption,
+    fieldName,
+    registerField,
+    setSelectedOption,
+    defaultValue,
+  ]);
+
+  useEffect(() => {
+    setSelectedOption(defaultValue);
+  }, [defaultValue]);
 
   useOnClickOutside(formRef, () => setIsOpen(false));
 

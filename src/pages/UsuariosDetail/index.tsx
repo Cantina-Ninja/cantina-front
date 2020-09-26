@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { RiUser6Fill, RiAdminLine, RiLockPasswordLine } from 'react-icons/ri';
 
 import Input from '../../components/Input';
@@ -15,30 +15,48 @@ import { Form, Container, InputsContainer } from './styles';
 
 const dataPermission = [
   {
-    key: 'ROLE_USER',
+    key: 'USER',
     value: 'Vendedor',
   },
   {
-    key: 'ROLE_ADMIN',
+    key: 'ADMIN',
     value: 'Administrador',
   },
 ];
 
 interface UsuarioProps {
-  readonly nome: string;
-  readonly senha: string;
-  readonly permissao?: string;
-  readonly tipoPerfil: string[];
+  readonly nome?: string;
+  readonly senha?: string;
+  readonly permissao?: any;
+  readonly tipoPerfil?: any[];
 }
 
 const UsuariosDetail: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { id = '' }: any = useParams();
   const [usuario, setUsuario] = useState<UsuarioProps>();
+  const history = useHistory();
 
   const getUsuario = useCallback(async () => {
-    const { data } = await api.get<UsuarioProps>(`usuarios/${id}`);
-    setUsuario(data);
+    try {
+      const { data } = await api.get<UsuarioProps>(`usuarios/${id}`);
+
+      const roleIndex =
+        Number(
+          data?.tipoPerfil?.findIndex((role: string) => role === 'ADMIN'),
+        ) > -1
+          ? 'ADMIN'
+          : 'USER';
+
+      const roleProps = dataPermission.find(item => item.key === roleIndex);
+
+      setUsuario({
+        nome: data.nome,
+        permissao: roleProps,
+      });
+    } catch (error) {
+      console.warn(error);
+    }
   }, [id, setUsuario]);
 
   const handleSubmit = useCallback(
@@ -64,8 +82,11 @@ const UsuariosDetail: React.FC = () => {
           await api.put(`usuarios/${id}`, {
             nome: data.nome,
             senha: data.senha,
-            tipoPerfil: [data.permissao],
+            tipoPerfil:
+              data.permissao.key === 'ADMIN' ? ['USER', 'ADMIN'] : ['USER'],
           });
+
+          history.push('/usuarios');
           return;
         }
 
@@ -73,8 +94,11 @@ const UsuariosDetail: React.FC = () => {
         await api.post(`usuarios/${id}`, {
           nome: data.nome,
           senha: data.senha,
-          tipoPerfil: [data.permissao],
+          tipoPerfil:
+            data.permissao.key === 'ADMIN' ? ['USER', 'ADMIN'] : ['USER'],
         });
+
+        history.push('/usuarios');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);

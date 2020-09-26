@@ -17,19 +17,23 @@ const Usuarios: React.FC = () => {
   const [usuarios, setUsuarios] = useState<UsuariosProps[]>([]);
 
   const getUsuarios = useCallback(async () => {
-    await api.get<UsuariosProps[]>('usuarios').then((response: any) => {
-      if (!response?.error) return;
+    try {
+      await api.get<UsuariosProps[]>('usuarios').then((response: any) => {
+        if (response?.error) return;
 
-      setUsuarios(
-        response.data.map(({ id, nome, tipoPerfil = '%' }: any) => {
-          return {
-            id,
-            nome,
-            tipoPerfil,
-          };
-        }),
-      );
-    });
+        setUsuarios(
+          response.data.map(({ id, nome, tipoPerfil = '%' }: any) => {
+            return {
+              id,
+              nome,
+              tipoPerfil,
+            };
+          }),
+        );
+      });
+    } catch (error) {
+      console.warn(error);
+    }
   }, []);
 
   useEffect(() => {
