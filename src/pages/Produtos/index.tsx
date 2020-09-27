@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
 import formatCurrency from '../../utils/formatCurrency';
 
 import Pagination from '../../components/Pagination';

@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
@@ -54,6 +56,16 @@ const ProdutoDetail: React.FC = () => {
             validade: `${ano}/${mes}/${dia}`,
             valorUnit: currencyNumber(data.valorUnit),
           });
+
+          toast.success('👌 Produto editado com sucesso!', {
+            position: 'top-center',
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
           // Create Product
           await api.post('produtos', {
@@ -62,6 +74,16 @@ const ProdutoDetail: React.FC = () => {
             qtdEstoque: data.qtdEstoque,
             validade: `${ano}/${mes}/${dia}`,
             valorUnit: currencyNumber(data.valorUnit),
+          });
+
+          toast.success('👌 Produto criado com sucesso!', {
+            position: 'top-center',
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
         }
 

@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 
 interface AuthState {
@@ -65,6 +66,17 @@ const AuthProvider: React.FC = ({ children }) => {
   api.interceptors.response.use(
     response => response,
     error => {
+      if (error.response.status === 400 || error.response.status === 401) {
+        toast.error(error.response.data.message, {
+          position: 'top-center',
+          autoClose: 6000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
       if (error.response.status === 403 || error.response.status === 401) {
         signOut();
       }
