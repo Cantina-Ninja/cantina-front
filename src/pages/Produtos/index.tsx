@@ -111,7 +111,7 @@ const Produtos: React.FC = () => {
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}
         totalItemsCount={totalItemsCount}
-        pageRangeDisplayed={6}
+        pageRangeDisplayed={4}
         onChange={pageNumber => handlePageChange(pageNumber)}
       />
     </Main>
