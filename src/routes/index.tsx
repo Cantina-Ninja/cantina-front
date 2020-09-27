@@ -10,6 +10,7 @@ import Vendas from '../pages/Vendas';
 import Vendedor from '../pages/Vendedor';
 import VendaView from '../pages/VendaView';
 import SignIn from '../pages/SignIn';
+import Error from '../pages/Error';
 
 import Route from './Route';
 import UsuariosDetail from '../pages/UsuariosDetail';
@@ -92,6 +93,8 @@ const Routes: React.FC = () => (
         activeMenu
         component={Vendedor}
       />
+
+      <Route path="/error" isPrivate activeMenu component={Error} />
     </Switch>
   </>
 );
