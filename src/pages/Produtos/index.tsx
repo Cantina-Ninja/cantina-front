@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
+import Pagination from '../../components/Pagination';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
 import { Main, CardsContainer, ContainerProdutos } from './styles';
@@ -18,51 +20,68 @@ interface ProdutosProps {
 
 interface ItemsProps {
   content: ProdutosProps[];
-  empty: boolean;
-  first: boolean;
   last: boolean;
   number: number;
-  numberOfElements: number;
   pageable: any;
-  size: number;
-  sort: any;
   totalElements: number;
   totalPages: number;
 }
 
 const Produtos: React.FC = () => {
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
+  const [activePage, setActivePage] = useState(1);
+  const [totalItemsCount, setTotalItemsCount] = useState(20);
+  const itemsCountPerPage = 5;
 
   const getProdutos = useCallback(async () => {
-    const { data } = await api.get<ItemsProps>('produtos');
-    const { content } = data;
+    try {
+      const { data } = await api.get<ItemsProps>('produtos', {
+        params: {
+          search: '',
+          page: activePage - 1,
+          perPage: itemsCountPerPage,
+          orderBy: 'skuProduto',
+          orderDirection: 'ASC',
+        },
+      });
 
-    setProdutos(
-      content.map(
-        ({
-          skuProduto,
-          nomeProduto,
-          marca,
-          validade,
-          qtdEstoque,
-          valorUnit,
-        }) => {
-          return {
-            id: skuProduto,
+      const { content, totalElements } = data;
+
+      setTotalItemsCount(totalElements);
+
+      setProdutos(
+        content.map(
+          ({
+            skuProduto,
             nomeProduto,
             marca,
-            validade: new Date(validade).toLocaleDateString('pt-br'),
+            validade,
             qtdEstoque,
-            valorUnit: formatCurrency(Number(valorUnit)),
-          };
-        },
-      ),
-    );
-  }, []);
+            valorUnit,
+          }) => {
+            return {
+              id: skuProduto,
+              nomeProduto,
+              marca,
+              validade: new Date(validade).toLocaleDateString('pt-br'),
+              qtdEstoque,
+              valorUnit: formatCurrency(Number(valorUnit)),
+            };
+          },
+        ),
+      );
+    } catch (error) {
+      console.warn(error);
+    }
+  }, [activePage]);
 
   useEffect(() => {
     getProdutos();
-  }, [getProdutos]);
+  }, [getProdutos, activePage]);
+
+  const handlePageChange = (pageNumber: any) => {
+    setActivePage(pageNumber);
+  };
 
   return (
     <Main>
@@ -73,7 +92,7 @@ const Produtos: React.FC = () => {
           title="Produtos"
           backgroundColor="#6859EA"
           valueColor="#fff"
-          value={`${produtos.length}`}
+          value={`${totalItemsCount}`}
           route="/produtos/new"
         />
       </CardsContainer>
@@ -87,6 +106,14 @@ const Produtos: React.FC = () => {
           stateRows={setProdutos}
         />
       </ContainerProdutos>
+
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={itemsCountPerPage}
+        totalItemsCount={totalItemsCount}
+        pageRangeDisplayed={6}
+        onChange={pageNumber => handlePageChange(pageNumber)}
+      />
     </Main>
   );
 };
