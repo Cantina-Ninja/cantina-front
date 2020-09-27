@@ -86,7 +86,7 @@ const UsuariosDetail: React.FC = () => {
             tipoUsuario: data.permissao.key === 1 ? 1 : 2,
           });
 
-          toast.success('👌 Usuário editado com sucesso!', {
+          toast.success('👌 Usuário atulizado com sucesso!', {
             position: 'top-center',
             autoClose: 6000,
             hideProgressBar: false,

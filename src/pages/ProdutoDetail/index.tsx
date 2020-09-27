@@ -57,7 +57,7 @@ const ProdutoDetail: React.FC = () => {
             valorUnit: currencyNumber(data.valorUnit),
           });
 
-          toast.success('👌 Produto editado com sucesso!', {
+          toast.success('👌 Produto atualizado com sucesso!', {
             position: 'top-center',
             autoClose: 6000,
             hideProgressBar: false,
