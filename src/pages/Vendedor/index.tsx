@@ -11,6 +11,7 @@ import Table from '../../components/Table';
 import Input from '../../components/Input';
 import DropDown from '../../components/DropDown';
 import Pagination from '../../components/Pagination';
+import { useAuth } from '../../hooks/auth';
 
 import api from '../../services/api';
 
@@ -64,6 +65,7 @@ const dataPermission = [
 
 const Vendedor: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const nomeVendedor = useAuth()?.nome || '';
   const [cart, setCart] = useState<any[]>([]);
   const [cpf, setCpf] = useState('000.000.000-00');
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
@@ -111,7 +113,7 @@ const Vendedor: React.FC = () => {
     } catch (error) {
       console.warn(error);
     }
-  }, []);
+  }, [activePage]);
 
   useEffect(() => {
     getProdutos();
@@ -138,7 +140,9 @@ const Vendedor: React.FC = () => {
   const handleSubmit = useCallback(async (data: ProdutosProps) => {
     try {
       console.log(data);
-    } catch (error) {}
+    } catch (error) {
+      console.warn(error);
+    }
   }, []);
 
   return (
@@ -159,7 +163,7 @@ const Vendedor: React.FC = () => {
           <ContainerInfo>
             <ContainerItem>
               <h3>Olá, vendedor(a)</h3>
-              <h1>Oceano Atlantico da Silva</h1>
+              <h1>{nomeVendedor}</h1>
             </ContainerItem>
           </ContainerInfo>
           <ContainerHeaderRight>

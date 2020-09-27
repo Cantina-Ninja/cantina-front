@@ -44,7 +44,8 @@ const RedirectRoute: React.FC<any> = ({
 }) => {
   const roles = useAuth()?.roles || '';
 
-  if (roles.indexOf(roleRoute) > -1) return <Component />;
+  if (roles.indexOf('ROLE_ADMIN') > -1 || roles.indexOf(roleRoute) > -1)
+    return <Component />;
 
   return (
     <Redirect

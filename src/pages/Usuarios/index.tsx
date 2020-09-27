@@ -22,11 +22,11 @@ const Usuarios: React.FC = () => {
         if (response?.error) return;
 
         setUsuarios(
-          response.data.map(({ id, nome, tipoPerfil = '%' }: any) => {
+          response.data.map(({ id, nome, tipo }: any) => {
             return {
               id,
               nome,
-              tipoPerfil,
+              tipoPerfil: tipo === 1 ? 'Administrador(a)' : 'Vendedor(a)',
             };
           }),
         );

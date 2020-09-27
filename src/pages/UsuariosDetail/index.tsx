@@ -15,12 +15,12 @@ import { Form, Container, InputsContainer } from './styles';
 
 const dataPermission = [
   {
-    key: 'USER',
-    value: 'Vendedor',
+    key: 1,
+    value: 'Administrador',
   },
   {
-    key: 'ADMIN',
-    value: 'Administrador',
+    key: 2,
+    value: 'Vendedor',
   },
 ];
 
@@ -28,27 +28,27 @@ interface UsuarioProps {
   readonly nome?: string;
   readonly senha?: string;
   readonly permissao?: any;
-  readonly tipoPerfil?: any[];
+  readonly tipoUsuario?: number;
 }
 
 const UsuariosDetail: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { id = '' }: any = useParams();
-  const [usuario, setUsuario] = useState<UsuarioProps>();
+  const [usuario, setUsuario] = useState<UsuarioProps>({
+    permissao: {
+      key: 1,
+      value: 'Administrador',
+    },
+  });
   const history = useHistory();
 
   const getUsuario = useCallback(async () => {
     try {
       const { data } = await api.get<UsuarioProps>(`usuarios/${id}`);
 
-      const roleIndex =
-        Number(
-          data?.tipoPerfil?.findIndex((role: string) => role === 'ADMIN'),
-        ) > -1
-          ? 'ADMIN'
-          : 'USER';
-
-      const roleProps = dataPermission.find(item => item.key === roleIndex);
+      const roleProps = dataPermission.find(
+        item => item.key === data?.tipoUsuario,
+      );
 
       setUsuario({
         nome: data.nome,
@@ -82,8 +82,7 @@ const UsuariosDetail: React.FC = () => {
           await api.put(`usuarios/${id}`, {
             nome: data.nome,
             senha: data.senha,
-            tipoPerfil:
-              data.permissao.key === 'ADMIN' ? ['USER', 'ADMIN'] : ['USER'],
+            tipoUsuario: data.permissao.key === 1 ? 1 : 2,
           });
 
           history.push('/usuarios');
@@ -94,8 +93,7 @@ const UsuariosDetail: React.FC = () => {
         await api.post(`usuarios/${id}`, {
           nome: data.nome,
           senha: data.senha,
-          tipoPerfil:
-            data.permissao.key === 'ADMIN' ? ['USER', 'ADMIN'] : ['USER'],
+          tipoUsuario: data.permissao.key === 1 ? 1 : 2,
         });
 
         history.push('/usuarios');
@@ -110,7 +108,9 @@ const UsuariosDetail: React.FC = () => {
   );
 
   useEffect(() => {
-    getUsuario();
+    if (id) {
+      getUsuario();
+    }
   }, [getUsuario]);
 
   return (
