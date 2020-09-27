@@ -64,10 +64,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
   // Response interceptor for API calls
   api.interceptors.response.use(
-    response => response,
+    (response: any) => {
+      return response;
+    },
     error => {
       if (error.response.status === 400 || error.response.status === 401) {
-        toast.error(error.response.data.message, {
+        toast.error(error.response.data.mensagem, {
           position: 'top-center',
           autoClose: 6000,
           hideProgressBar: false,
