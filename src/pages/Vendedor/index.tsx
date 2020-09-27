@@ -72,30 +72,32 @@ const Vendedor: React.FC = () => {
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
 
   const getProdutos = useCallback(async () => {
-    const { data } = await api.get<ItemsProps>('produtos');
-    const { content } = data;
+    try {
+      const { data } = await api.get<ItemsProps>('produtos');
+      const { content } = data;
 
-    setProdutos(
-      content.map(
-        ({
-          skuProduto,
-          nomeProduto,
-          marca,
-          validade,
-          qtdEstoque,
-          valorUnit,
-        }) => {
-          return {
-            id: skuProduto,
+      setProdutos(
+        content.map(
+          ({
+            skuProduto,
             nomeProduto,
             marca,
-            validade: new Date(validade).toLocaleDateString('pt-br'),
+            validade,
             qtdEstoque,
-            valorUnit: [valorUnit, formatValue(Number(valorUnit))],
-          };
-        },
-      ),
-    );
+            valorUnit,
+          }) => {
+            return {
+              id: skuProduto,
+              nomeProduto,
+              marca,
+              validade: new Date(validade).toLocaleDateString('pt-br'),
+              qtdEstoque,
+              valorUnit: [valorUnit, formatValue(Number(valorUnit))],
+            };
+          },
+        ),
+      );
+    } catch (error) {}
   }, []);
 
   useEffect(() => {

@@ -21,23 +21,27 @@ const Vendas: React.FC = () => {
   const [lucroTotal, setTotalLucro] = useState(0);
 
   const getVendas = useCallback(async () => {
-    const { data } = await api.get<VendasProps[]>('vendas');
+    try {
+      const { data } = await api.get<VendasProps[]>('vendas');
 
-    setVendas(
-      data.map(({ idVenda, cpf = '', valorTotal, dataVenda }) => {
-        setTotalLucro(
-          (prevTotalLucro): number => prevTotalLucro + Number(valorTotal),
-        );
+      setVendas(
+        data.map(({ idVenda, cpf = '', valorTotal, dataVenda }) => {
+          setTotalLucro(
+            (prevTotalLucro): number => prevTotalLucro + Number(valorTotal),
+          );
 
-        return {
-          id: idVenda,
-          idVenda,
-          cpf: formatCpf(cpf),
-          dataVenda: new Date(dataVenda).toLocaleDateString('pt-br'),
-          valorTotal: formatCurrency(Number(valorTotal)),
-        };
-      }),
-    );
+          return {
+            id: idVenda,
+            idVenda,
+            cpf: formatCpf(cpf),
+            dataVenda: new Date(dataVenda).toLocaleDateString('pt-br'),
+            valorTotal: formatCurrency(Number(valorTotal)),
+          };
+        }),
+      );
+    } catch (error) {
+      console.warn(error);
+    }
   }, []);
 
   useEffect(() => {
