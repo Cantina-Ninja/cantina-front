@@ -16,6 +16,11 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
     history.push('/');
   }, []);
 
+  const roles = useAuth()?.roles || '';
+
+  const rolePath =
+    roles.indexOf('ROLE_ADMIN') > -1 ? '/dashboard' : '/vendedor';
+
   return (
     // Pass on our props
     <MenuSlide customBurgerIcon={<Hamburguer />} {...props}>
@@ -24,17 +29,25 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
       </div>
       <div className="container-menus">
         <header>
-          <NavLink activeClassName="active_menu" to="/dashboard" exact>
-            Dashboard
-          </NavLink>
-          <NavLink activeClassName="active_menu" exact to="/produtos">
-            Produtos
-          </NavLink>
-          <NavLink activeClassName="active_menu" exact to="/usuarios">
-            Usuários
-          </NavLink>
-          <NavLink activeClassName="active_menu" exact to="/vendas">
-            Vendas
+          {roles.indexOf('ROLE_ADMIN') > -1 && (
+            <>
+              {' '}
+              <NavLink activeClassName="active_menu" to="/dashboard" exact>
+                Dashboard
+              </NavLink>
+              <NavLink activeClassName="active_menu" exact to="/produtos">
+                Produtos
+              </NavLink>
+              <NavLink activeClassName="active_menu" exact to="/usuarios">
+                Usuários
+              </NavLink>
+              <NavLink activeClassName="active_menu" exact to="/vendas">
+                Vendas
+              </NavLink>
+            </>
+          )}
+          <NavLink activeClassName="active_menu" exact to="/vendedor">
+            Vendedor
           </NavLink>
         </header>
         <footer>
