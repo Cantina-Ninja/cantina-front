@@ -55,13 +55,13 @@ export const ContainerHeaderRight = styled.div`
 export const ContainerTable = styled.div`
   display: flex;
   flex-direction: row;
+`;
 
-  table {
-    flex: 1;
-    &:first-child {
-      margin-right: 1rem;
-    }
-  }
+export const ContainerProducts = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 1rem;
 `;
 
 export const ContainerCart = styled.div`

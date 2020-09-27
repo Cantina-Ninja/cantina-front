@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Main, ContainerVendas, CardsContainer } from './styles';
 
 import api from '../../services/api';
 import formatCurrency from '../../utils/formatCurrency';
@@ -7,6 +6,8 @@ import formatCpf from '../../utils/formatCpf';
 
 import Card from '../../components/Card';
 import Table from '../../components/Table';
+import Pagination from '../../components/Pagination';
+import { Main, ContainerVendas, CardsContainer } from './styles';
 
 interface VendasProps {
   readonly id?: number;
@@ -16,16 +17,40 @@ interface VendasProps {
   readonly dataVenda: string;
 }
 
+interface ItemsProps {
+  content: VendasProps[];
+  last: boolean;
+  number: number;
+  pageable: any;
+  totalElements: number;
+  totalPages: number;
+}
+
 const Vendas: React.FC = () => {
   const [vendas, setVendas] = useState<VendasProps[]>([]);
   const [lucroTotal, setTotalLucro] = useState(0);
+  const [activePage, setActivePage] = useState(1);
+  const [totalItemsCount, setTotalItemsCount] = useState(1);
+  const itemsCountPerPage = 5;
 
   const getVendas = useCallback(async () => {
     try {
-      const { data } = await api.get<VendasProps[]>('vendas');
+      const { data } = await api.get<ItemsProps>('vendas', {
+        params: {
+          search: '',
+          page: activePage - 1,
+          perPage: itemsCountPerPage,
+          orderBy: 'dataVenda',
+          orderDirection: 'DESC',
+        },
+      });
+
+      const { content, totalElements } = data;
+
+      setTotalItemsCount(totalElements);
 
       setVendas(
-        data.map(({ idVenda, cpf = '', valorTotal, dataVenda }) => {
+        content.map(({ idVenda, cpf = '', valorTotal, dataVenda }) => {
           setTotalLucro(
             (prevTotalLucro): number => prevTotalLucro + Number(valorTotal),
           );
@@ -46,7 +71,11 @@ const Vendas: React.FC = () => {
 
   useEffect(() => {
     getVendas();
-  }, [getVendas]);
+  }, [getVendas, activePage]);
+
+  const handlePageChange = (pageNumber: any) => {
+    setActivePage(pageNumber);
+  };
 
   return (
     <Main>
@@ -73,7 +102,13 @@ const Vendas: React.FC = () => {
           routeView="vendas"
         />
       </ContainerVendas>
-      <hr />
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={itemsCountPerPage}
+        totalItemsCount={totalItemsCount}
+        pageRangeDisplayed={4}
+        onChange={pageNumber => handlePageChange(pageNumber)}
+      />
     </Main>
   );
 };

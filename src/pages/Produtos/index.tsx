@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import formatCurrency from '../../utils/formatCurrency';
+
 import Pagination from '../../components/Pagination';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
 import { Main, CardsContainer, ContainerProdutos } from './styles';
-import formatCurrency from '../../utils/formatCurrency';
 
 import api from '../../services/api';
 
@@ -30,7 +31,7 @@ interface ItemsProps {
 const Produtos: React.FC = () => {
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
   const [activePage, setActivePage] = useState(1);
-  const [totalItemsCount, setTotalItemsCount] = useState(20);
+  const [totalItemsCount, setTotalItemsCount] = useState(1);
   const itemsCountPerPage = 5;
 
   const getProdutos = useCallback(async () => {
@@ -41,7 +42,7 @@ const Produtos: React.FC = () => {
           page: activePage - 1,
           perPage: itemsCountPerPage,
           orderBy: 'skuProduto',
-          orderDirection: 'ASC',
+          orderDirection: 'DESC',
         },
       });
 
@@ -106,7 +107,6 @@ const Produtos: React.FC = () => {
           stateRows={setProdutos}
         />
       </ContainerProdutos>
-
       <Pagination
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}

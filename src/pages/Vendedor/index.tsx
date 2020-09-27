@@ -1,15 +1,16 @@
-import React, { useCallback, useState, useEffect } from 'react';
-
+import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { FormHandles } from '@unform/core';
 import { RiUser6Line } from 'react-icons/ri';
 import { FaRegCreditCard } from 'react-icons/fa';
-import cpfMask from '../../utils/cpfMask';
 
+import cpfMask from '../../utils/cpfMask';
 import formatValue from '../../utils/formatCurrency';
 
 import Button from '../../components/Button';
 import Table from '../../components/Table';
 import Input from '../../components/Input';
 import DropDown from '../../components/DropDown';
+import Pagination from '../../components/Pagination';
 
 import api from '../../services/api';
 
@@ -21,6 +22,7 @@ import {
   ContainerVendas,
   Form,
   ContainerHeaderRight,
+  ContainerProducts,
   ContainerCart,
   ContainerTable,
   ContainerPrice,
@@ -38,14 +40,9 @@ interface ProdutosProps {
 
 interface ItemsProps {
   content: ProdutosProps[];
-  empty: boolean;
-  first: boolean;
   last: boolean;
   number: number;
-  numberOfElements: number;
   pageable: any;
-  size: number;
-  sort: any;
   totalElements: number;
   totalPages: number;
 }
@@ -66,15 +63,29 @@ const dataPermission = [
 ];
 
 const Vendedor: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const [cart, setCart] = useState<any[]>([]);
   const [cpf, setCpf] = useState('000.000.000-00');
-
   const [produtos, setProdutos] = useState<ProdutosProps[]>([]);
+  const [activePage, setActivePage] = useState(1);
+  const [totalItemsCount, setTotalItemsCount] = useState(1);
+  const itemsCountPerPage = 5;
 
   const getProdutos = useCallback(async () => {
     try {
-      const { data } = await api.get<ItemsProps>('produtos');
-      const { content } = data;
+      const { data } = await api.get<ItemsProps>('produtos', {
+        params: {
+          search: '',
+          page: activePage - 1,
+          perPage: itemsCountPerPage,
+          orderBy: 'skuProduto',
+          orderDirection: 'DESC',
+        },
+      });
+
+      const { content, totalElements } = data;
+
+      setTotalItemsCount(totalElements);
 
       setProdutos(
         content.map(
@@ -97,12 +108,14 @@ const Vendedor: React.FC = () => {
           },
         ),
       );
-    } catch (error) {}
+    } catch (error) {
+      console.warn(error);
+    }
   }, []);
 
   useEffect(() => {
     getProdutos();
-  }, [getProdutos]);
+  }, [getProdutos, activePage]);
 
   const handleAddCart = useCallback(
     async ({ id, nomeProduto, valorUnit }: any) => {
@@ -118,13 +131,28 @@ const Vendedor: React.FC = () => {
     [cart],
   );
 
+  const handlePageChange = (pageNumber: any) => {
+    setActivePage(pageNumber);
+  };
+
+  const handleSubmit = useCallback(async (data: ProdutosProps) => {
+    try {
+      console.log(data);
+    } catch (error) {}
+  }, []);
+
   return (
     <Container>
       <header>Vendedor</header>
 
       <Form
-        onSubmit={e => {
-          console.log(e);
+        onSubmit={handleSubmit}
+        ref={formRef}
+        initialData={{
+          pagamento: {
+            key: 'money',
+            value: 'Dinheiro',
+          },
         }}
       >
         <ContainerHeader>
@@ -148,18 +176,27 @@ const Vendedor: React.FC = () => {
               icon={FaRegCreditCard}
               perspective="horizontal"
               description="Pagamento"
-              name="permissao"
+              name="pagamento"
             />
           </ContainerHeaderRight>
         </ContainerHeader>
         <hr />
         <ContainerTable>
-          <Table
-            columns={['Produtos', 'Marca', 'Validade', 'Quantidade', 'Valor']}
-            rows={produtos}
-            routeAddCart="add"
-            stateRows={handleAddCart}
-          />
+          <ContainerProducts>
+            <Table
+              columns={['Produtos', 'Marca', 'Validade', 'Quantidade', 'Valor']}
+              rows={produtos}
+              routeAddCart="add"
+              stateRows={handleAddCart}
+            />
+            <Pagination
+              activePage={activePage}
+              itemsCountPerPage={itemsCountPerPage}
+              totalItemsCount={totalItemsCount}
+              pageRangeDisplayed={4}
+              onChange={pageNumber => handlePageChange(pageNumber)}
+            />
+          </ContainerProducts>
           <ContainerCart>
             <Table
               columns={['Carrinho', 'Valor']}
