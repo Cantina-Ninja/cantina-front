@@ -22,7 +22,6 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
     roles.indexOf('ROLE_ADMIN') > -1 ? '/dashboard' : '/vendedor';
 
   return (
-    // Pass on our props
     <MenuSlide customBurgerIcon={<Hamburguer />} {...props}>
       <div className="logo">
         <img src={Logo} alt="CantnaNinja" />

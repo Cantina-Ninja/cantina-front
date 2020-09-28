@@ -15,9 +15,6 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
     gradientBg.addColorStop(0, '#7C67FF');
     gradientBg.addColorStop(1, 'transparent');
 
-    // ctx.canvas.parentNode.style.height = '800px';
-    // ctx.canvas.parentNode.style.width = '2000px';
-
     new Chart(ctx, {
       type: 'line',
       options: {
@@ -25,7 +22,6 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
         animation: {
           easing: 'easeInOutBack',
         },
-        // grid
         scales: {
           xAxes: [
             {
@@ -42,13 +38,11 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
             },
           ],
         },
-        // curvas
         elements: {
           line: {
             tension: 0,
           },
         },
-        // legendas
         legend: {
           display: false,
           labels: {
@@ -58,7 +52,6 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
         },
       },
       data: {
-        // colunas
         labels: [
           'Janeiro',
           'Fevereiro',
@@ -85,7 +78,6 @@ const ChartLine: React.FC<CanvasProps> = ({ data, ...rest }) => {
             pointHoverBorderWidth: 10,
             pointStyle: 'circle',
             label: 'R$',
-            // dados das colunas
             data,
           },
         ],

@@ -8,10 +8,8 @@ interface MenuContextData {
   stateChangeHandler(newState: any): void;
 }
 
-// make a new context
 const MenuContext = createContext<MenuContextData>({} as MenuContextData);
 
-// create the provider
 const MenuProvider: React.FC = ({ children }) => {
   const [menuOpenState, setMenuOpenState] = useState(false);
   const [menuVisible, setMenuVisible] = useState(true);

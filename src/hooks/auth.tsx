@@ -62,7 +62,6 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
-  // Response interceptor for API calls
   api.interceptors.response.use(
     (response: any) => {
       if (response?.data.mensagem !== undefined) {

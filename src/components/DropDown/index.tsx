@@ -23,7 +23,6 @@ interface DropDownProps {
   icon?: React.ComponentType<IconBaseProps>;
 }
 
-// Hook
 function useOnClickOutside(ref: any, handler: any) {
   useEffect(() => {
     const listener = (event: any) => {
@@ -43,12 +42,6 @@ function useOnClickOutside(ref: any, handler: any) {
     };
   }, [ref, handler]);
 }
-
-/**
- * References
- * https://github.com/Pomax/react-onclickoutside/issues/310
- * https://medium.com/the-andela-way/custom-select-dropdown-in-react-1758c1f6f537
- */
 
 const DropDown: React.FC<DropDownProps> = ({
   data,
@@ -83,8 +76,6 @@ const DropDown: React.FC<DropDownProps> = ({
         return selectedOption;
       },
     });
-
-    // setSelectedOption(defaultValue);
   }, [
     selectedOption,
     fieldName,

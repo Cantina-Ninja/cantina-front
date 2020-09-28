@@ -45,10 +45,9 @@ const ProdutoDetail: React.FC = () => {
           abortEarly: false,
         });
 
-        const [ano, mes, dia] = data.validade.split('-'); // TODO
+        const [ano, mes, dia] = data.validade.split('-');
 
         if (id) {
-          // Edit Product
           await api.put(`produtos/${id}`, {
             nomeProduto: data.nomeProduto,
             marca: data.marca,
@@ -67,7 +66,6 @@ const ProdutoDetail: React.FC = () => {
             progress: undefined,
           });
         } else {
-          // Create Product
           await api.post('produtos', {
             nomeProduto: data.nomeProduto,
             marca: data.marca,
@@ -87,7 +85,6 @@ const ProdutoDetail: React.FC = () => {
           });
         }
 
-        // Redirect
         history.push('/produtos');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -102,7 +99,7 @@ const ProdutoDetail: React.FC = () => {
   const getProduto = useCallback(async () => {
     const { data } = await api.get<any>(`produtos/${id}`);
 
-    const [ano, mes, dia] = data.validade.split('/'); // TODO
+    const [ano, mes, dia] = data.validade.split('/');
 
     setProduto({
       nomeProduto: data.nomeProduto,
@@ -116,7 +113,6 @@ const ProdutoDetail: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      // Edit Product
       getProduto();
     }
   }, [getProduto, id]);

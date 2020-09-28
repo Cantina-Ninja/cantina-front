@@ -78,7 +78,6 @@ const UsuariosDetail: React.FC = () => {
           abortEarly: false,
         });
 
-        // Edit User
         if (id) {
           await api.put(`usuarios/${id}`, {
             nome: data.nome,
@@ -100,7 +99,6 @@ const UsuariosDetail: React.FC = () => {
           return;
         }
 
-        // Create User
         await api.post(`usuarios/${id}`, {
           nome: data.nome,
           senha: data.senha,

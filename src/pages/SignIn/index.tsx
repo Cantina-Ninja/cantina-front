@@ -1,5 +1,4 @@
 import React, { useCallback, useRef } from 'react';
-// import { useHistory } from 'react-router-dom';
 import { RiUser6Line, RiKey2Fill } from 'react-icons/ri';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
@@ -19,7 +18,6 @@ interface SignInData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  // const history = useHistory();
 
   const { signIn } = useAuth();
 
