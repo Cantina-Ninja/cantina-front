@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { RiUser6Fill, RiAdminLine, RiLockPasswordLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -84,17 +83,6 @@ const UsuariosDetail: React.FC = () => {
             senha: data.senha,
             tipoUsuario: data.permissao.key === 1 ? 1 : 2,
           });
-
-          toast.success('👌 Usuário atulizado com sucesso!', {
-            position: 'top-center',
-            autoClose: 6000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-
           history.push('/usuarios');
           return;
         }
@@ -103,16 +91,6 @@ const UsuariosDetail: React.FC = () => {
           nome: data.nome,
           senha: data.senha,
           tipoUsuario: data.permissao.key === 1 ? 1 : 2,
-        });
-
-        toast.success('👌 Usuário criado com sucesso!', {
-          position: 'top-center',
-          autoClose: 6000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
 
         history.push('/usuarios');
