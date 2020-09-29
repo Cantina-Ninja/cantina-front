@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { useParams, useHistory } from 'react-router-dom';
@@ -78,24 +79,50 @@ const UsuariosDetail: React.FC = () => {
         });
 
         if (id) {
-          await api.put(`usuarios/${id}`, {
-            nome: data.nome,
-            senha: data.senha,
-            tipoUsuario: data.permissao.key === 1 ? 1 : 2,
-          });
-          history.push('/usuarios');
-          return;
+          await api
+            .put(`usuarios/${id}`, {
+              nome: data.nome,
+              senha: data.senha,
+              tipoUsuario: data.permissao.key === 1 ? 1 : 2,
+            })
+            .then(response => {
+              if (response.status === 200) {
+                toast.success(response.data.mensagem, {
+                  position: 'top-center',
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  toastId: response.data?.mensagem,
+                });
+                response.status === 200 && history.push('/usuarios');
+              }
+            });
+        } else {
+          await api
+            .post(`usuarios/${id}`, {
+              nome: data.nome,
+              senha: data.senha,
+              tipoUsuario: data.permissao.key === 1 ? 1 : 2,
+            })
+            .then(response => {
+              if (response.status === 200) {
+                toast.success(response.data.mensagem, {
+                  position: 'top-center',
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  toastId: response.data?.mensagem,
+                });
+                response.status === 200 && history.push('/usuarios');
+              }
+            });
         }
-
-        await api
-          .post(`usuarios/${id}`, {
-            nome: data.nome,
-            senha: data.senha,
-            tipoUsuario: data.permissao.key === 1 ? 1 : 2,
-          })
-          .then(response => {
-            console.log(response);
-          });
 
         history.push('/usuarios');
       } catch (err) {

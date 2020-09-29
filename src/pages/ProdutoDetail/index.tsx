@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
@@ -47,23 +48,54 @@ const ProdutoDetail: React.FC = () => {
         const [ano, mes, dia] = data.validade.split('-');
 
         if (id) {
-          await api.put(`produtos/${id}`, {
-            nomeProduto: data.nomeProduto,
-            marca: data.marca,
-            qtdEstoque: data.qtdEstoque,
-            validade: `${ano}/${mes}/${dia}`,
-            valorUnit: currencyNumber(data.valorUnit),
-          });
+          await api
+            .put(`produtos/${id}`, {
+              nomeProduto: data.nomeProduto,
+              marca: data.marca,
+              qtdEstoque: data.qtdEstoque,
+              validade: `${ano}/${mes}/${dia}`,
+              valorUnit: currencyNumber(data.valorUnit),
+            })
+            .then(response => {
+              if (response.status === 200) {
+                toast.success(response.data.mensagem, {
+                  position: 'top-center',
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  toastId: response.data?.mensagem,
+                });
+                response.status === 200 && history.push('/produtos');
+              }
+            });
         } else {
-          await api.post('produtos', {
-            nomeProduto: data.nomeProduto,
-            marca: data.marca,
-            qtdEstoque: data.qtdEstoque,
-            validade: `${ano}/${mes}/${dia}`,
-            valorUnit: currencyNumber(data.valorUnit),
-          });
+          await api
+            .post('produtos', {
+              nomeProduto: data.nomeProduto,
+              marca: data.marca,
+              qtdEstoque: data.qtdEstoque,
+              validade: `${ano}/${mes}/${dia}`,
+              valorUnit: currencyNumber(data.valorUnit),
+            })
+            .then(response => {
+              if (response.status === 200) {
+                toast.success(response.data.mensagem, {
+                  position: 'top-center',
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  toastId: response.data?.mensagem,
+                });
+                response.status === 200 && history.push('/produtos');
+              }
+            });
         }
-        history.push('/produtos');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);

@@ -63,21 +63,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   api.interceptors.response.use(
-    (response: any) => {
-      if (response?.data.mensagem !== undefined) {
-        toast.success(response.data.mensagem, {
-          position: 'top-center',
-          autoClose: 6000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: response.data.mensagem
-        });
-      }
-      return response;
-    },
+    response => response,
     error => {
       if (error.response.status === 400 || error.response.status === 401) {
         toast.error(error.response.data.mensagem, {

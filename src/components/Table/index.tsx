@@ -93,9 +93,27 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const handleRemoveRow = useCallback(
     async (id: any) => {
-      stateRows(rows.filter((item: any) => id !== item.id));
       try {
-        await api.delete(`${routeRemove}/${id}`);
+        await api
+          .delete(`${routeRemove}/${id}`)
+          .then(response => {
+            if (response.status === 200) {
+              toast.success(response.data.mensagem, {
+                position: 'top-center',
+                autoClose: 6000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: response.data?.mensagem,
+              });
+              stateRows(rows.filter((item: any) => id !== item.id));
+            }
+          })
+          .catch(error => {
+            return error;
+          });
       } catch (error) {
         console.log(error);
       }
