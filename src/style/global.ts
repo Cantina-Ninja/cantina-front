@@ -62,6 +62,14 @@ export default createGlobalStyle`
     }
   }
 
+  .Toastify__toast-container {
+    width: 27rem;
+  }
+
+  .Toastify__toast-body {
+    white-space: pre-line;
+  }
+
   #page-wrap {
     display: flex;
   }

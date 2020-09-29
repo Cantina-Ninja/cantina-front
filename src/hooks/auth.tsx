@@ -90,6 +90,20 @@ const AuthProvider: React.FC = ({ children }) => {
           progress: undefined,
         });
       }
+      if (error.response.status === 500) {
+        toast.error(
+          '🤔 Ops! Houve uma dificuldade no processamento com o servidor.',
+          {
+            position: 'top-center',
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          },
+        );
+      }
       if (error.response.status === 403 || error.response.status === 401) {
         signOut();
       }

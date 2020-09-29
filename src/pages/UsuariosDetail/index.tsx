@@ -87,11 +87,15 @@ const UsuariosDetail: React.FC = () => {
           return;
         }
 
-        await api.post(`usuarios/${id}`, {
-          nome: data.nome,
-          senha: data.senha,
-          tipoUsuario: data.permissao.key === 1 ? 1 : 2,
-        });
+        await api
+          .post(`usuarios/${id}`, {
+            nome: data.nome,
+            senha: data.senha,
+            tipoUsuario: data.permissao.key === 1 ? 1 : 2,
+          })
+          .then(response => {
+            console.log(response);
+          });
 
         history.push('/usuarios');
       } catch (err) {

@@ -88,6 +88,7 @@ const Routes: React.FC = () => (
 
       <Route
         path="/vendedor"
+        exact
         isPrivate
         authorisedUsers="USER"
         activeMenu
