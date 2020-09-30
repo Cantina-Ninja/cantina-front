@@ -142,7 +142,7 @@ const Vendedor: React.FC = () => {
     async (data: any) => {
       try {
         const venda = {
-          cpf: data?.cpf,
+          cpf: data?.cpf.replace(/[^0-9]+/g, ''),
           formaPagamento: data?.formaPagamento?.key,
           itens: cart
             .map(item => {
