@@ -66,7 +66,6 @@ const VendaView: React.FC = () => {
           id: produto.skuProduto,
           nomeProduto: produto.nomeProduto,
           marca: produto.marca,
-          validade: new Date(produto.validade).toLocaleDateString('pt-br'),
           quantidade,
           valorUnit: formatCurrency(Number(produto.valorUnit)),
           subTotal: formatCurrency(Number(subTotal)),
@@ -113,7 +112,6 @@ const VendaView: React.FC = () => {
         columns={[
           'Produtos',
           'Marca',
-          'Validade',
           'Quantidade',
           'Valor unidade',
           'Subtotal',

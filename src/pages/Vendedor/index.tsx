@@ -170,6 +170,19 @@ const Vendedor: React.FC = () => {
           ),
         };
 
+        if (!cart.length) {
+          toast.error('😕 Ops! Carrinho vazio', {
+            position: 'top-center',
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+        }
+
         api.post('/vendas', venda).then(response => {
           if (response?.status === 201) {
             toast.success('🙌 Venda efetuada com sucesso!', {
@@ -180,9 +193,9 @@ const Vendedor: React.FC = () => {
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
-              toastId: response.data?.mensagem,
             });
             setCart([]);
+            setCpf(cpfMask('00000000000'));
           }
         });
       } catch (error) {
