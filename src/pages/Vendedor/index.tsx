@@ -33,11 +33,11 @@ import {
 interface ProdutosProps {
   readonly id?: number;
   readonly skuProduto?: number;
-  readonly nomeProduto: string;
-  readonly marca: string;
+  readonly nomeProduto?: string;
+  readonly marca?: string;
   readonly validade?: string;
-  readonly qtdEstoque: number;
-  readonly valorUnit: any[];
+  readonly qtdEstoque?: number;
+  readonly valorUnit?: any[];
 }
 
 interface ItemsProps {
@@ -91,44 +91,27 @@ const Vendedor: React.FC = () => {
       setTotalItemsCount(totalElements);
 
       setProdutos(
-        content.map(
-          ({ skuProduto, nomeProduto, marca, qtdEstoque, valorUnit }) => {
+        content
+          .filter(contentProduto => {
+            if (Number(contentProduto.qtdEstoque) > 0) {
+              return contentProduto;
+            }
+            setTotalItemsCount(totalElements - 1);
+            return false;
+          })
+          .map(({ skuProduto, nomeProduto, marca, valorUnit }) => {
             return {
               id: skuProduto,
               nomeProduto,
               marca,
-              qtdEstoque,
               valorUnit: [valorUnit, formatValue(Number(valorUnit))],
             };
-          },
-        ),
+          }),
       );
     } catch (error) {
       console.warn(error);
     }
   }, [activePage]);
-
-  useEffect(() => {
-    getProdutos();
-  }, [getProdutos, activePage]);
-
-  const handleAddCart = useCallback(
-    async ({ id, nomeProduto, valorUnit }: any) => {
-      setCart([
-        ...cart,
-        {
-          id,
-          title: nomeProduto,
-          valorUnit,
-        },
-      ]);
-    },
-    [cart],
-  );
-
-  const handlePageChange = (pageNumber: any) => {
-    setActivePage(pageNumber);
-  };
 
   const handleSubmit = useCallback(
     async (data: any) => {
@@ -197,6 +180,28 @@ const Vendedor: React.FC = () => {
     [cart],
   );
 
+  useEffect(() => {
+    getProdutos();
+  }, [getProdutos, activePage, handleSubmit]);
+
+  const handleAddCart = useCallback(
+    async ({ id, nomeProduto, valorUnit }: any) => {
+      setCart([
+        ...cart,
+        {
+          id,
+          title: nomeProduto,
+          valorUnit,
+        },
+      ]);
+    },
+    [cart],
+  );
+
+  const handlePageChange = (pageNumber: any) => {
+    setActivePage(pageNumber);
+  };
+
   return (
     <Container>
       <header>Vendedor</header>
@@ -240,7 +245,7 @@ const Vendedor: React.FC = () => {
         <ContainerTable>
           <ContainerProducts>
             <Table
-              columns={['Produtos', 'Marca', 'Quantidade', 'Valor']}
+              columns={['Produtos', 'Marca', 'Valor']}
               rows={produtos}
               routeAddCart="add"
               stateRows={handleAddCart}
