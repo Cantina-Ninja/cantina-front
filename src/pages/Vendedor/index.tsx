@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { RiUser6Line } from 'react-icons/ri';
 import { FaRegCreditCard } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 import cpfMask from '../../utils/cpfMask';
 import formatValue from '../../utils/formatCurrency';
@@ -140,10 +141,7 @@ const Vendedor: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: any) => {
       try {
-        const timeElapsed = Date.now();
-        const today = new Date(timeElapsed);
         const venda = {
-          dataVenda: today.toLocaleDateString(),
           cpf: data?.cpf,
           formaPagamento: data?.formaPagamento?.key,
           itens: cart
@@ -171,7 +169,22 @@ const Vendedor: React.FC = () => {
             0,
           ),
         };
-        console.log(venda);
+
+        api.post('/vendas', venda).then(response => {
+          if (response?.status === 201) {
+            toast.success('🙌 Venda efetuada com sucesso!', {
+              position: 'top-center',
+              autoClose: 6000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              toastId: response.data?.mensagem,
+            });
+            setCart([]);
+          }
+        });
       } catch (error) {
         console.warn(error);
       }

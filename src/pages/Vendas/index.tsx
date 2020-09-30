@@ -67,7 +67,7 @@ const Vendas: React.FC = () => {
     } catch (error) {
       console.warn(error);
     }
-  }, []);
+  }, [activePage]);
 
   useEffect(() => {
     getVendas();
