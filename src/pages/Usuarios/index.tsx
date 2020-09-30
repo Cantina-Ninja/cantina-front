@@ -25,7 +25,7 @@ const Usuarios: React.FC = () => {
           response.data.map(({ id, nome, tipo }: any) => {
             return {
               id,
-              nome,
+              title: nome,
               tipoPerfil: tipo === 1 ? 'Administrador(a)' : 'Vendedor(a)',
             };
           }),

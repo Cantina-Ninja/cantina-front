@@ -62,12 +62,50 @@ export default createGlobalStyle`
     }
   }
 
+  /* Toastify */
   .Toastify__toast-container {
     width: 27rem;
   }
 
   .Toastify__toast-body {
     white-space: pre-line;
+  }
+
+  /* Modal custom */
+
+  .react-confirm-alert-overlay {
+    background: rgba(0,0,0,0.9);
+    z-index: 99999;
+
+    .react-confirm-alert {
+      background: #1c1f20;
+      border-radius: .5rem;
+      min-width: 40rem;
+      min-height: 10rem;
+      padding: 3rem;
+
+      h1 {
+        font-size: 1.3rem;
+        color: #c2c9d0;
+        span {
+          font-weight: 700;
+          color: #6859EA;
+        }
+      }
+
+      .container-btns {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: row;
+
+        button:first-child {
+          margin-right: .5rem;
+        }
+        button:last-child {
+          margin-left: .5rem;
+        }
+      }
+    }
   }
 
   #page-wrap {

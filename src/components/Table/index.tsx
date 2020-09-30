@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 import {
   MdModeEdit,
   MdDeleteForever,
@@ -8,12 +9,16 @@ import {
   MdAddCircle,
 } from 'react-icons/md';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import Button from '../Button';
+
 import { Container } from './styles';
 import api from '../../services/api';
 import getExpiredProduct from '../../utils/getExpiredProduct';
 
 export interface TableProps {
   columns?: string[] | [];
+  indexRow?: number;
   rows: object[];
   routeEdit?: string;
   routeView?: string;
@@ -25,6 +30,7 @@ export interface TableProps {
 }
 
 export const TableItem: React.FC<TableProps> = ({
+  indexRow,
   rows,
   routeEdit,
   routeView,
@@ -33,6 +39,38 @@ export const TableItem: React.FC<TableProps> = ({
   routeAddCart,
   handleAddCart,
 }: any) => {
+  const submit = (item: any) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        const handleClickedNo = () => {
+          onClose();
+        };
+        const handleClickedYes = () => {
+          onClose();
+          console.log(111, indexRow);
+          handleRemoveRow(item, indexRow);
+        };
+        return (
+          <div className="custom-ui">
+            <h1>
+              Você tem certeza que deseja remover <span>{item?.title}</span> ?
+            </h1>
+            <div className="container-btns">
+              <Button type="button" onClick={handleClickedNo}>
+                Cancelar
+              </Button>
+              <Button type="button" onClick={handleClickedYes}>
+                Confirmar
+              </Button>
+            </div>
+          </div>
+        );
+      },
+      closeOnEscape: true,
+      closeOnClickOutside: false,
+    });
+  };
+
   return (
     <tr>
       {Object.entries(rows).map(([a, b]: any) => {
@@ -68,7 +106,7 @@ export const TableItem: React.FC<TableProps> = ({
           </Link>
         )}
         {routeRemove && (
-          <button type="button" onClick={() => handleRemoveRow(rows.id)}>
+          <button type="button" onClick={() => submit(rows)}>
             <MdDeleteForever title="Remover" />
           </button>
         )}
@@ -92,28 +130,32 @@ const Table: React.FC<TableProps> = ({
   stateRows,
 }) => {
   const handleRemoveRow = useCallback(
-    async (id: any) => {
+    async (itemRow: any, indexRow: number) => {
       try {
-        await api
-          .delete(`${routeRemove}/${id}`)
-          .then(response => {
-            if (response.status === 200) {
-              toast.success(response.data.mensagem, {
-                position: 'top-center',
-                autoClose: 6000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                toastId: response.data?.mensagem,
-              });
-              stateRows(rows.filter((item: any) => id !== item.id));
-            }
-          })
-          .catch(error => {
-            return error;
-          });
+        if (routeRemove !== 'fake') {
+          await api
+            .delete(`${routeRemove}/${itemRow?.id}`)
+            .then(response => {
+              if (response.status === 200) {
+                toast.success(response.data.mensagem, {
+                  position: 'top-center',
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  toastId: response.data?.mensagem,
+                });
+                stateRows(rows.filter((item: any) => item.id !== itemRow?.id));
+              }
+            })
+            .catch(error => {
+              return error;
+            });
+        } else {
+          stateRows(rows.filter((_, index) => index !== indexRow));
+        }
       } catch (error) {
         console.log(error);
       }
@@ -138,9 +180,10 @@ const Table: React.FC<TableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {rows.map((item: any) => (
+        {rows.map((item: any, indexRow: number) => (
           <TableItem
             key={Math.random()}
+            indexRow={indexRow}
             rows={item}
             routeEdit={routeEdit}
             routeView={routeView}

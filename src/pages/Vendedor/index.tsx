@@ -50,15 +50,15 @@ interface ItemsProps {
 
 const dataPermission = [
   {
-    key: 'credit',
+    key: 'CREDITO',
     value: 'Crédito',
   },
   {
-    key: 'debit',
+    key: 'DEBITO',
     value: 'Débito',
   },
   {
-    key: 'money',
+    key: 'DINHEIRO',
     value: 'Dinheiro',
   },
 ];
@@ -125,7 +125,7 @@ const Vendedor: React.FC = () => {
         ...cart,
         {
           id,
-          nomeProduto,
+          title: nomeProduto,
           valorUnit,
         },
       ]);
@@ -137,13 +137,47 @@ const Vendedor: React.FC = () => {
     setActivePage(pageNumber);
   };
 
-  const handleSubmit = useCallback(async (data: ProdutosProps) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.warn(error);
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (data: any) => {
+      try {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+        const venda = {
+          dataVenda: today.toLocaleDateString(),
+          cpf: data?.cpf,
+          formaPagamento: data?.formaPagamento?.key,
+          itens: cart
+            .map(item => {
+              return {
+                quantidade: cart.reduce(
+                  (beforeCart: any, { id }: any) =>
+                    beforeCart + (item?.id === id),
+                  0,
+                ),
+                produto: {
+                  skuProduto: item?.id,
+                },
+                subTotal: item?.valorUnit[0],
+              };
+            })
+            .filter(
+              (v: any, i, a) =>
+                a.findIndex(
+                  (t: any) => t.produto.skuProduto === v.produto.skuProduto,
+                ) === i,
+            ),
+          valorTotal: cart.reduce(
+            (beforeCart, { valorUnit }) => beforeCart + valorUnit[0],
+            0,
+          ),
+        };
+        console.log(venda);
+      } catch (error) {
+        console.warn(error);
+      }
+    },
+    [cart],
+  );
 
   return (
     <Container>
@@ -153,8 +187,8 @@ const Vendedor: React.FC = () => {
         onSubmit={handleSubmit}
         ref={formRef}
         initialData={{
-          pagamento: {
-            key: 'money',
+          formaPagamento: {
+            key: 'DINHEIRO',
             value: 'Dinheiro',
           },
         }}
@@ -171,7 +205,7 @@ const Vendedor: React.FC = () => {
               icon={RiUser6Line}
               perspective="horizontal"
               description="CPF"
-              name="confirmacaoSenha"
+              name="cpf"
               value={cpf}
               onChange={e => setCpf(cpfMask(e.target.value))}
             />
@@ -180,7 +214,7 @@ const Vendedor: React.FC = () => {
               icon={FaRegCreditCard}
               perspective="horizontal"
               description="Pagamento"
-              name="pagamento"
+              name="formaPagamento"
             />
           </ContainerHeaderRight>
         </ContainerHeader>
@@ -205,7 +239,7 @@ const Vendedor: React.FC = () => {
             <Table
               columns={['Carrinho', 'Valor']}
               rows={cart}
-              routeRemove="cart"
+              routeRemove="fake"
               stateRows={setCart}
             />
             <hr />
@@ -213,7 +247,12 @@ const Vendedor: React.FC = () => {
               <ContainerItem>
                 <h3>Total</h3>
                 <h1>
-                  {formatValue(cart.reduce((a, b) => a + b.valorUnit[0], 0))}
+                  {formatValue(
+                    cart.reduce(
+                      (beforeCart, { valorUnit }) => beforeCart + valorUnit[0],
+                      0,
+                    ),
+                  )}
                 </h1>
               </ContainerItem>
               <Button type="submit">Finalizar pedido</Button>
