@@ -167,6 +167,8 @@ const ProdutoDetail: React.FC = () => {
             description="Data Validade"
             name="validade"
             type="Date"
+            min="2020-01-01"
+            max="2100-12-31"
           />
         </InputsContainer>
         <hr />

@@ -99,10 +99,11 @@ const Vendedor: React.FC = () => {
             setTotalItemsCount(totalElements - 1);
             return false;
           })
-          .map(({ skuProduto, nomeProduto, marca, valorUnit }) => {
+          .map(({ skuProduto, nomeProduto, qtdEstoque, marca, valorUnit }) => {
             return {
               id: skuProduto,
               nomeProduto,
+              qtdEstoque,
               marca,
               valorUnit: [valorUnit, formatValue(Number(valorUnit))],
             };
@@ -185,15 +186,40 @@ const Vendedor: React.FC = () => {
   }, [getProdutos, activePage, handleSubmit]);
 
   const handleAddCart = useCallback(
-    async ({ id, nomeProduto, valorUnit }: any) => {
-      setCart([
-        ...cart,
-        {
+    async ({ id, nomeProduto, valorUnit, qtdEstoque }: ProdutosProps) => {
+      cart.map((item: any) => {
+        return {
           id,
           title: nomeProduto,
           valorUnit,
-        },
-      ]);
+        };
+      });
+
+      const cartCount = cart.reduce((beforeCart, afterCart: any) => {
+        if (afterCart.id === id) return beforeCart + 1;
+        return beforeCart;
+      }, 1);
+
+      if (cartCount <= Number(qtdEstoque)) {
+        setCart([
+          ...cart,
+          {
+            id,
+            title: nomeProduto,
+            valorUnit,
+          },
+        ]);
+      } else {
+        toast.error(`Quantidade máxima do produto ${nomeProduto} atingida.`, {
+          position: 'top-center',
+          autoClose: 6000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     },
     [cart],
   );
@@ -245,7 +271,7 @@ const Vendedor: React.FC = () => {
         <ContainerTable>
           <ContainerProducts>
             <Table
-              columns={['Produtos', 'Marca', 'Valor']}
+              columns={['Produtos', 'Qtd', 'Marca', 'Valor']}
               rows={produtos}
               routeAddCart="add"
               stateRows={handleAddCart}
