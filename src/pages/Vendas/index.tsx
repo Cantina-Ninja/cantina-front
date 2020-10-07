@@ -80,7 +80,6 @@ const Vendas: React.FC = () => {
 
   return (
     <Main>
-      {!vendas.length && <Load />}
       <header>Vendas</header>
       <CardsContainer>
         <Card
@@ -98,6 +97,7 @@ const Vendas: React.FC = () => {
       </CardsContainer>
       <hr />
       <ContainerVendas>
+        {!vendas.length && <Load />}
         <Table
           columns={['Nro. venda', 'CPF', 'Data', 'Total']}
           rows={vendas}

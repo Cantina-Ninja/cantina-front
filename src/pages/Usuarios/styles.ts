@@ -11,6 +11,7 @@ export const Main = styled.main`
 `;
 
 export const ContainerUsuarios = styled.section`
+  position: relative;
   flex-direction: column;
 `;
 

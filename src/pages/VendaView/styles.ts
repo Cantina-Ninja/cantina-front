@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.main``;
 
-export const ContainerVendas = styled.section`
+export const ContainerProdutos = styled.section`
+  position: relative;
   flex-direction: column;
 `;
 export const ContainerInfo = styled.div`
+  position: relative;
   display: flex;
   flex-wrap: wrap;
 `;

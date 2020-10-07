@@ -43,9 +43,9 @@ const Usuarios: React.FC = () => {
 
   return (
     <Main>
-      {!usuarios.length && <Load />}
       <header>Usuários</header>
       <ContainerUsuarios>
+        {!usuarios.length && <Load />}
         <Table
           columns={['Usuarios', 'Acesso']}
           rows={usuarios}

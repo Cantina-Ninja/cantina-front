@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import cpfMask from '../../utils/cpfMask';
 import formatValue from '../../utils/formatCurrency';
 
+import Load from '../../components/Load';
 import Button from '../../components/Button';
 import Table from '../../components/Table';
 import Input from '../../components/Input';
@@ -270,6 +271,7 @@ const Vendedor: React.FC = () => {
         <hr />
         <ContainerTable>
           <ContainerProducts>
+            {!produtos.length && <Load />}
             <Table
               columns={['Produtos', 'Qtd', 'Marca', 'Valor']}
               rows={produtos}

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: fixed;
+  position: absolute;
   background: rgba(17, 20, 21, 0.8);
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 
   .spinner {
     border: 8px solid rgba(17, 20, 21, 0.1);

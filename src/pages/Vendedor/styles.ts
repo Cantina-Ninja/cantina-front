@@ -58,6 +58,7 @@ export const ContainerTable = styled.div`
 `;
 
 export const ContainerProducts = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;

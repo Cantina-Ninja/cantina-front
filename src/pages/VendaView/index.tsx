@@ -12,7 +12,7 @@ import {
   Container,
   ContainerInfo,
   ContainerItem,
-  ContainerVendas,
+  ContainerProdutos,
 } from './styles';
 
 interface ProdutosProps {
@@ -81,9 +81,9 @@ const VendaView: React.FC = () => {
 
   return (
     <Container>
-      {!venda && <Load />}
       <header>Detalhes da venda</header>
       <ContainerInfo>
+        {!venda && <Load />}
         <ContainerItem>
           <h3>Nro. venda</h3>
           <p>{venda?.idVenda}</p>
@@ -110,17 +110,20 @@ const VendaView: React.FC = () => {
         </ContainerItem>
       </ContainerInfo>
       <hr />
-      <Table
-        columns={[
-          'Produtos',
-          'Marca',
-          'Quantidade',
-          'Valor unidade',
-          'Subtotal',
-        ]}
-        rows={produtos}
-      />
-      <ContainerVendas />
+
+      <ContainerProdutos>
+        {!venda && <Load />}
+        <Table
+          columns={[
+            'Produtos',
+            'Marca',
+            'Quantidade',
+            'Valor unidade',
+            'Subtotal',
+          ]}
+          rows={produtos}
+        />
+      </ContainerProdutos>
     </Container>
   );
 };

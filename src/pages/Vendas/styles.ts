@@ -5,6 +5,7 @@ export const Main = styled.main`
 `;
 
 export const ContainerVendas = styled.section`
+  position: relative;
   flex-direction: column;
 `;
 
