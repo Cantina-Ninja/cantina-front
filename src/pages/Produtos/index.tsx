@@ -79,6 +79,12 @@ const Produtos: React.FC = () => {
     getProdutos();
   }, [getProdutos, activePage]);
 
+  useEffect(() => {
+    if (produtos.length > 0 && produtos.length !== itemsCountPerPage) {
+      getProdutos();
+    }
+  }, [getProdutos, produtos, itemsCountPerPage]);
+
   const handlePageChange = (pageNumber: any) => {
     setActivePage(pageNumber);
   };
