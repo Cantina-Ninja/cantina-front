@@ -160,6 +160,7 @@ const ProdutoDetail: React.FC = () => {
             name="valorUnit"
             type="text"
             value={valorUnit}
+            maxLength={10}
             onChange={e => setValorUnit(currencyMask(e.target.value))}
             placeholder="R$ 00,00"
           />
