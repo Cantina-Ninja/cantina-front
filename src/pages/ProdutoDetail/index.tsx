@@ -143,6 +143,7 @@ const ProdutoDetail: React.FC = () => {
             perspective="horizontal"
             description="Quantidade em estoque"
             name="qtdEstoque"
+            maxLength={3}
             type="text"
             placeholder="00"
           />
