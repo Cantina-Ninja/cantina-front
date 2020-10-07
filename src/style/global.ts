@@ -74,7 +74,7 @@ export default createGlobalStyle`
   /* Modal custom */
 
   .react-confirm-alert-overlay {
-    background: rgba(0,0,0,0.9);
+    background: rgba(17, 20, 21, 0.8);
     z-index: 99999;
 
     .react-confirm-alert {
@@ -150,7 +150,7 @@ export default createGlobalStyle`
 
   /* Styling of overlay */
   .bm-overlay {
-    background: rgba(0, 0, 0, .4) !important;
+    background: rgba(17, 20, 21, 0.8) !important;
   }
 
   .bm-cross-button {

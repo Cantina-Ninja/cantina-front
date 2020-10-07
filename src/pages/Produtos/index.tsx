@@ -7,6 +7,7 @@ import Table from '../../components/Table';
 import { Main, CardsContainer, ContainerProdutos } from './styles';
 
 import api from '../../services/api';
+import Load from '../../components/Load';
 
 interface ProdutosProps {
   readonly id?: number;
@@ -91,8 +92,8 @@ const Produtos: React.FC = () => {
 
   return (
     <Main>
+      {!produtos.length && <Load />}
       <header>Produtos</header>
-
       <CardsContainer>
         <Card
           title="Produtos"

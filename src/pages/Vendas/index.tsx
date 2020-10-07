@@ -5,6 +5,7 @@ import formatCurrency from '../../utils/formatCurrency';
 import formatCpf from '../../utils/formatCpf';
 
 import Card from '../../components/Card';
+import Load from '../../components/Load';
 import Table from '../../components/Table';
 import Pagination from '../../components/Pagination';
 import { Main, ContainerVendas, CardsContainer } from './styles';
@@ -79,6 +80,7 @@ const Vendas: React.FC = () => {
 
   return (
     <Main>
+      {!vendas.length && <Load />}
       <header>Vendas</header>
       <CardsContainer>
         <Card

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Main, ContainerUsuarios } from './styles';
 
 import Table from '../../components/Table';
+import Load from '../../components/Load';
 import Button from '../../components/Button';
 import api from '../../services/api';
 
@@ -42,6 +43,7 @@ const Usuarios: React.FC = () => {
 
   return (
     <Main>
+      {!usuarios.length && <Load />}
       <header>Usuários</header>
       <ContainerUsuarios>
         <Table

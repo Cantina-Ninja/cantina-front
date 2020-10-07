@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import formatCurrency from '../../utils/formatCurrency';
 import formatCpf from '../../utils/formatCpf';
 import Table from '../../components/Table';
+import Load from '../../components/Load';
 
 import api from '../../services/api';
 
@@ -80,6 +81,7 @@ const VendaView: React.FC = () => {
 
   return (
     <Container>
+      {!venda && <Load />}
       <header>Detalhes da venda</header>
       <ContainerInfo>
         <ContainerItem>
