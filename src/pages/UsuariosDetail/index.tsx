@@ -66,12 +66,20 @@ const UsuariosDetail: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          nome: Yup.string().required('Usuário obrigatório'),
+          nome: Yup.string()
+            .required('Usuário obrigatório')
+            .min(6, 'Minimo de 6 caracteres')
+            .max(15, 'Máximo de 15 caracteres'),
           permissao: Yup.string().required('Permissão obrigatória'),
-          senha: Yup.string().required('Senha obrigatória'),
+          senha: Yup.string()
+            .required('Senha obrigatória')
+            .min(6, 'Minimo de 6 caracteres')
+            .max(15, 'Máximo de 15 caracteres'),
           confirmacaoSenha: Yup.string()
             .oneOf([Yup.ref('senha'), ''], 'As senhas não coincidem')
-            .required('Confirmação de senha obrigatória'),
+            .required('Confirmação de senha obrigatória')
+            .min(6, 'Minimo de 6 caracteres')
+            .max(15, 'Máximo de 15 caracteres'),
         });
 
         await schema.validate(data, {
@@ -151,6 +159,7 @@ const UsuariosDetail: React.FC = () => {
             perspective="horizontal"
             description="Nome do usuário"
             name="nome"
+            maxLength={15}
             type="text"
           />
           <DropDown
@@ -165,6 +174,7 @@ const UsuariosDetail: React.FC = () => {
             perspective="horizontal"
             description="Senha"
             name="senha"
+            maxLength={15}
             type="password"
           />
           <Input
@@ -172,6 +182,7 @@ const UsuariosDetail: React.FC = () => {
             perspective="horizontal"
             description="Confirmar senha"
             name="confirmacaoSenha"
+            maxLength={15}
             type="password"
           />
         </InputsContainer>

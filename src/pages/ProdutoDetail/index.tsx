@@ -135,6 +135,7 @@ const ProdutoDetail: React.FC = () => {
           <Input
             perspective="horizontal"
             description="Nome do produto"
+            maxLength={30}
             name="nomeProduto"
             type="text"
             placeholder="Produto"
@@ -150,6 +151,7 @@ const ProdutoDetail: React.FC = () => {
           <Input
             perspective="horizontal"
             description="Marca"
+            maxLength={30}
             name="marca"
             type="text"
             placeholder="Marca"
