@@ -34,10 +34,16 @@ const ProdutoDetail: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          nomeProduto: Yup.string().required('Nome do produto obrigatório'),
+          nomeProduto: Yup.string()
+            .required('Nome do produto obrigatório')
+            .min(3, 'Minimo de 3 caracteres')
+            .max(30, 'Máximo de 30 caracteres'),
           validade: Yup.string().required('Validade do produto obrigatório'),
           qtdEstoque: Yup.number().typeError('Apenas valores numéricos'),
-          marca: Yup.string().required('Marca do produto obrigatório'),
+          marca: Yup.string()
+            .required('Marca do produto obrigatório')
+            .min(3, 'Minimo de 3 caracteres')
+            .max(30, 'Máximo de 30 caracteres'),
           valorUnit: Yup.string().required('Valor unitário obrigatório'),
         });
 

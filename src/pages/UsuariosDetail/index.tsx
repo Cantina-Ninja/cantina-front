@@ -68,17 +68,17 @@ const UsuariosDetail: React.FC = () => {
         const schema = Yup.object().shape({
           nome: Yup.string()
             .required('Usuário obrigatório')
-            .min(6, 'Minimo de 6 caracteres')
+            .min(3, 'Minimo de 3 caracteres')
             .max(15, 'Máximo de 15 caracteres'),
           permissao: Yup.string().required('Permissão obrigatória'),
           senha: Yup.string()
             .required('Senha obrigatória')
-            .min(6, 'Minimo de 6 caracteres')
+            .min(3, 'Minimo de 3 caracteres')
             .max(15, 'Máximo de 15 caracteres'),
           confirmacaoSenha: Yup.string()
             .oneOf([Yup.ref('senha'), ''], 'As senhas não coincidem')
             .required('Confirmação de senha obrigatória')
-            .min(6, 'Minimo de 6 caracteres')
+            .min(3, 'Minimo de 3 caracteres')
             .max(15, 'Máximo de 15 caracteres'),
         });
 
