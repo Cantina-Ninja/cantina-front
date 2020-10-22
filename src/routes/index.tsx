@@ -14,6 +14,7 @@ import Error from '../pages/Error';
 
 import Route from './Route';
 import UsuariosDetail from '../pages/UsuariosDetail';
+import Help from '../pages/Help';
 
 const Routes: React.FC = () => (
   <>
@@ -93,6 +94,15 @@ const Routes: React.FC = () => (
         authorisedUsers="USER"
         activeMenu
         component={Vendedor}
+      />
+
+      <Route
+        path="/ajuda"
+        exact
+        isPrivate
+        authorisedUsers="USER"
+        activeMenu
+        component={Help}
       />
 
       <Route path="/error" isPrivate activeMenu component={Error} />

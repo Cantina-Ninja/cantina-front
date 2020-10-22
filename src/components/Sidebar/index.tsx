@@ -48,6 +48,9 @@ const Sidebar: React.FC<Props> = ({ ...props }) => {
           <NavLink activeClassName="active_menu" exact to="/vendedor">
             Vendedor
           </NavLink>
+          <NavLink activeClassName="active_menu" exact to="/ajuda">
+            Ajuda
+          </NavLink>
         </header>
         <footer>
           <button type="button" onClick={handleSignOut}>
