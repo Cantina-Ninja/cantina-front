@@ -1,9 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useState,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ChartLine from '../../components/ChartLine';
 import Card from '../../components/Card';
 import { Main, ContainerChart, CardsContainer } from './styles';
@@ -12,23 +7,17 @@ import api from '../../services/api';
 import Load from '../../components/Load';
 
 const Dashboard: React.FC = () => {
-  const [dashboard, setDashboard] = useState<any[]>([]);
+  const [dashboard, setDashboard] = useState();
   const { innerWidth }: any = window;
 
   const getDashboad = useCallback(async () => {
     try {
       const { data } = await api.get<any>('dashboard');
-
       setDashboard(data);
     } catch (error) {
       console.warn(error);
     }
   }, []);
-
-  useLayoutEffect(() => {
-    console.log(innerWidth);
-  }, [innerWidth]);
-
   useEffect(() => {
     getDashboad();
   }, []);
@@ -37,7 +26,7 @@ const Dashboard: React.FC = () => {
     <Main>
       <header>Dashboard</header>
       <ContainerChart>
-        <ChartLine height={100} data={dashboard} />
+        {dashboard ? <ChartLine height={100} data={dashboard} /> : <Load />}
       </ContainerChart>
       <hr />
       <CardsContainer>
