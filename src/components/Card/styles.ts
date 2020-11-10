@@ -29,6 +29,7 @@ export const Container = styled.div<CardProps>`
   margin: 0 0 30px 30px;
 
   h1 {
+    margin-top: 0.5rem;
     font-size: 34px;
   }
 
