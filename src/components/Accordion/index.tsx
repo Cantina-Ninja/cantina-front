@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { MdAddCircle } from 'react-icons/md';
+import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import { Container, Content } from './styles';
 
@@ -13,13 +13,15 @@ const Accordion: React.FC<AccordionProps> = ({ children, title = '' }) => {
   const content: any = useRef(null);
 
   return (
-    <Container>
+    <Container isOpen={isOpen}>
       <button type="button" onClick={() => setIsOpen(!isOpen)}>
-        {title}
+        <span>{title}</span>
+        <MdKeyboardArrowRight />
       </button>
       <Content ref={content} isOpen={isOpen}>
         {children}
       </Content>
+      <hr />
     </Container>
   );
 };
