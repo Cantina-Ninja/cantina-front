@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   const getTotalMes = useCallback(async () => {
     try {
       const { data } = await api.get<any>('dashboard/totaldomes');
-      setTotalMes(formatCurrency(Number(data[0])));
+      setTotalMes(formatCurrency(Number(data.length ? data[0] : 0)));
     } catch (error) {
       console.warn(error);
     }
@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
   const getTotalDia = useCallback(async () => {
     try {
       const { data } = await api.get<any>('dashboard/totaldodia');
-      setTotalDia(formatCurrency(Number(data[0])));
+      setTotalDia(formatCurrency(Number(data.length ? data[0] : 0)));
     } catch (error) {
       console.warn(error);
     }
