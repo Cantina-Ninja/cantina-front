@@ -9,7 +9,7 @@
   <a href="#rocket-começando">Começando</a>
 </p>
 
-<h1 align="center">
+<p align="center">
     <img alt="GoBarber" src="src/assets/acessando_tela_produtos.gif" />
     <img alt="GoBarber" src="src/assets/atualizando_produto.gif" />
     <img alt="GoBarber" src="src/assets/cadastrando_produto.gif" />
@@ -18,7 +18,7 @@
     <img alt="GoBarber" src="src/assets/acessando_tela_vendas.gif" />
     <img alt="GoBarber" src="src/assets/acessando_vendedor.gif" />
     <img alt="GoBarber" src="src/assets/realizando_venda.gif" />
-</h1>
+</p>
 
 ## :page_with_curl: Sobre
 Sistema para cantinas escolares, com o objetivo de suprir as necessidades do cliente para realização e automatização dos processos de seu comércio.
@@ -39,7 +39,6 @@ Sistema para cantinas escolares, com o objetivo de suprir as necessidades do cli
 -  [react-confirm-alert](https://www.npmjs.com/package/react-confirm-alert)
 -  [react-js-pagination](https://www.npmjs.com/package/react-js-pagination)
 -  [VS Code](https://code.visualstudio.com/), [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) e [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
 
 ## :rocket: Começando
 Para clonar a aplicação você precisa do [Git](https://git-scm.com), [Node.js v10.16](https://nodejs.org/en/) ou superior +, [Yarn v1.13](https://yarnpkg.com/) ou superior.
