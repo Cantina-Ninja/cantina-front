@@ -24,7 +24,7 @@
 Sistema para cantinas escolares, com o objetivo de suprir as necessidades do cliente para realização e automatização dos processos de seu comércio.
 
 ## :books: Tecnologias
--  [ReactJS](https://reactjs.org/)
+-  [ReactJS](https://reactjs.org/) com [Typescript](https://www.typescriptlang.org/)
 -  [React Router v4](https://github.com/ReactTraining/react-router)
 -  [styled-components](https://www.styled-components.com/)
 -  [Axios](https://github.com/axios/axios)
@@ -38,18 +38,18 @@ Sistema para cantinas escolares, com o objetivo de suprir as necessidades do cli
 -  [react-burger-menu](https://github.com/negomi/react-burger-menu)
 -  [react-confirm-alert](https://www.npmjs.com/package/react-confirm-alert)
 -  [react-js-pagination](https://www.npmjs.com/package/react-js-pagination)
--  [VS Code][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
+-  [VS Code](https://code.visualstudio.com/), [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) e [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 
 ## :rocket: Começando
-Para clonar a aplicação você precisa do [Git](https://git-scm.com), [Node.js v10.16][nodejs] ou superior + [Yarn v1.13][yarn] ou superior.
+Para clonar a aplicação você precisa do [Git](https://git-scm.com), [Node.js v10.16](https://nodejs.org/en/) ou superior +, [Yarn v1.13](https://yarnpkg.com/) ou superior.
 
 ```bash
 # Clonar o repositório
 $ git clone https://github.com/Cantina-Ninja/cantina-front
 
-# Entrar na pasta 
-$ cd cantina-front 
+# Entrar na pasta
+$ cd cantina-front
 
 # Instalar as dependencias
 $ yarn install
