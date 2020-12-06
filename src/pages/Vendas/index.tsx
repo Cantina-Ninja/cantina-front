@@ -75,6 +75,7 @@ const Vendas: React.FC = () => {
   }, [getVendas, activePage]);
 
   const handlePageChange = (pageNumber: any) => {
+    setVendas([]);
     setActivePage(pageNumber);
   };
 
@@ -83,16 +84,10 @@ const Vendas: React.FC = () => {
       <header>Vendas</header>
       <CardsContainer>
         <Card
-          title="Qtd. vendas"
+          title="Qtd. Vendas"
           backgroundColor="#6859EA"
           valueColor="#fff"
-          value={`${vendas.length}`}
-        />
-        <Card
-          title="Total em vendas"
-          backgroundColor="#6859EA"
-          valueColor="#fff"
-          value={`${formatCurrency(lucroTotal)}`}
+          value={`${totalItemsCount}`}
         />
       </CardsContainer>
       <hr />

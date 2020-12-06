@@ -87,6 +87,7 @@ const Produtos: React.FC = () => {
   }, [getProdutos, produtos, itemsCountPerPage]);
 
   const handlePageChange = (pageNumber: any) => {
+    setProdutos([]);
     setActivePage(pageNumber);
   };
 
@@ -95,7 +96,7 @@ const Produtos: React.FC = () => {
       <header>Produtos</header>
       <CardsContainer>
         <Card
-          title="Produtos"
+          title="Qtd. Produtos"
           backgroundColor="#6859EA"
           valueColor="#fff"
           value={`${totalItemsCount}`}
